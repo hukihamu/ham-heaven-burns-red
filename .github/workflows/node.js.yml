@@ -9,6 +9,11 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
 
@@ -26,6 +31,7 @@ jobs:
       uses: actions/configure-pages@v5
     - run: npm ci
     - run: npm run build
+    - run: ls
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
