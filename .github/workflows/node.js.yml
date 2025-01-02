@@ -15,26 +15,41 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
-
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --base=/ham-heaven-burns-red/
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: page
+          path: dist
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
+    steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        name: page
+        path: .
     - name: Setup Pages
       uses: actions/configure-pages@v5
-    - run: npm ci
-    - run: npm run build --base=/ham-heaven-burns-red/
-    - name: Upload artifact
+    - name: Set Artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: 'dist'
+        path: .
     - name: Deploy to Github Pages
       id: deployment
       uses: actions/deploy-pages@v4
