@@ -38,7 +38,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - name: build
-        run: npm run build --base=/<REPO>/
+        run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
