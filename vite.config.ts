@@ -10,6 +10,7 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
+  base: '/ham-heaven-burns-red/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
