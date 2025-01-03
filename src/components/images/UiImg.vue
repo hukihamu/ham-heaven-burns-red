@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import {computed} from 'vue'
-import type {ElementType, GrowthAbiType, SkillType, StyleType, TierType} from '@/types/general.ts'
+import type {ElementType, GrowthAbiType, RoleType, SkillType, StyleType, TierType} from '@/types/general.ts'
 
-const {tier, styleType, skillType, growthAbiType, element, width, height, alt} = defineProps({
+const {allow, newLabel, tier, styleType, skillType, growthAbiType, element, role, width, height, alt} = defineProps({
   tier: String as () => TierType,
   element: String as () => ElementType,
   styleType: String as () => StyleType,
   growthAbiType: String as () => GrowthAbiType,
   skillType: String as () => SkillType,
+  role: String as () => RoleType,
+  allow: String as () => 'Up' | 'Down',
+  newLabel: Boolean,
   alt: String,
   width: Number,
   height: Number,
@@ -29,7 +32,7 @@ const image = computed<ImgSrc>(() => {
     const replaceName = growthAbiType
       .replace('DebuffUp', 'GiveDebuffUp')
       .replace('BuffUp', 'GiveAttackBuffUp')
-      .replace('HealUp', 'ReviveDp') // TODO より良いiconに
+      .replace('HealUp', 'GiveHealUp')
       .replace('Passive.DefenceUpFromProvoke', 'DefenseUp') // TODO より良いiconに
     return {
       src: `https://hbr.quest/al/${replaceName}.webp`,
@@ -45,6 +48,21 @@ const image = computed<ImgSrc>(() => {
   if (element) return {
     src: `https://hbr.quest/ui/${element}.webp`,
     ...calcSize(48, 48, 1, 1),
+    alt,
+  }
+  if (role) return {
+    src: `/ham-heaven-burns-red/${role}.png`,
+    ...calcSize(430, 86, 5, 1),
+    alt,
+  }
+  if (allow) return {
+    src: `https://hbr.quest/al/Icon${allow}.webp`,
+    ...calcSize(32, 30, 16, 15),
+    alt,
+  }
+  if (newLabel) return {
+    src: `https://hbr.quest/ui/LabelNew.webp`,
+    ...calcSize(108, 57, 36, 19),
     alt,
   }
   return {
@@ -74,15 +92,12 @@ function calcSize(defaultWidth: number, defaultHeight: number, ratioX: number, r
 </script>
 
 <template>
-  <v-tooltip :text="image.alt" location="top" :disabled="!image.alt">
-    <template #activator="{props}">
-      <v-img v-bind="props"
-             :src="image.src"
-             :width="image.width"
-             :height="image.height"
-             :alt="image.alt" />
-    </template>
-  </v-tooltip>
+  <v-img :src="image.src"
+         :width="image.width"
+         :height="image.height"
+         :alt="image.alt" >
+    <v-tooltip :text="image.alt" location="top" :disabled="!image.alt" activator="parent"/>
+  </v-img>
 </template>
 
 <style scoped>

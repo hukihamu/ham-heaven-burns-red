@@ -14,6 +14,11 @@ const router = createRouter({
       name: 'styles',
       component: () => import('@/views/StylesView.vue'),
     },
+    {
+      path: '/owner-styles',
+      name: 'owner-styles',
+      component: () => import('@/views/OwnerStylesView.vue'),
+    },
   ],
 })
 

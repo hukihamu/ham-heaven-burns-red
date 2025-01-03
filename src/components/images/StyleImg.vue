@@ -2,7 +2,7 @@
 import type {Style} from '@/types/style.ts'
 import {computed} from 'vue'
 
-const {style, type, width, height} = defineProps({
+const props = defineProps({
   style: Object as () => Style,
   type: {
     type: String as () => 'select' | 'thumbnail' | 'weapon' | 'b',
@@ -17,49 +17,49 @@ function calcSize(defaultWidth: number, defaultHeight: number, ratioX: number, r
     width: defaultWidth,
     height: defaultHeight,
   }
-  if (width) {
-    temp.width = width
-    if (height) {
-      temp.height = height
+  if (props.width) {
+    temp.width = props.width
+    if (props.height) {
+      temp.height = props.height
     } else {
-      temp.height = width * ratioY / ratioX
+      temp.height = props.width * ratioY / ratioX
     }
-  } else if (height) {
-    temp.width = height * ratioX / ratioY
-    temp.height = height
+  } else if (props.height) {
+    temp.width = props.height * ratioX / ratioY
+    temp.height = props.height
   }
   return temp
 }
 const image = computed<ImgSrc>(() => {
   const defaultProp = { width: 0, height: 0, src: '' }
-  if (!style) return defaultProp
+  if (!props.style) return defaultProp
   // https://hbr.quest/pf/31a/RKayamori.webp?62, https://hbr.quest/pf/angelbeats/CathyC.webp?62
   // https://hbr.quest/hbr/RKayamoriSmallIcon.webp?62
   // https://hbr.quest/g/RKayamoriProfile.webp?62
-  switch (type) {
+  switch (props.type) {
     case 'select':
       return {
-        src: `https://hbr.quest/hbr/${style.bg.replace('.webp', '_Select.webp')}`,
+        src: `https://hbr.quest/hbr/${props.style.bg.replace('.webp', '_Select.webp')}`,
         ...calcSize(356, 144, 89, 36),
-        alt: style?.name,
+        alt: props.style?.name,
       }
     case 'thumbnail':
       return {
-        src: `https://hbr.quest/hbr/${style.image}`,
+        src: `https://hbr.quest/hbr/${props.style.image}`,
           ...calcSize(184, 184, 1, 1),
-        alt: style?.name,
+        alt: props.style?.name,
       }
     case 'weapon':
       return {
-        src: `https://hbr.quest/hbr/${style.weapon.type}.webp`,
+        src: `https://hbr.quest/hbr/${props.style.weapon.type}.webp`,
         ...calcSize(180, 180, 1, 1),
-        alt: style?.weapon.name,
+        alt: props.style?.weapon.name,
       }
     case 'b':
       return {
-        src: `https://hbr.quest/b/${style.chara_label}.webp`,
+        src: `https://hbr.quest/b/${props.style.chara_label}.webp`,
         ...calcSize(174, 172, 87, 86),
-        alt: style?.chara,
+        alt: props.style?.chara,
       }
     default:
       return defaultProp
@@ -68,15 +68,12 @@ const image = computed<ImgSrc>(() => {
 </script>
 
 <template>
-  <v-tooltip :text="image.alt" location="top">
-    <template #activator="{props}">
-      <v-img v-bind="props"
-             :src="image.src"
-             :width="image.width"
-             :height="image.height"
-             :alt="image.alt" />
-    </template>
-  </v-tooltip>
+  <v-img :src="image.src"
+         :width="image.width"
+         :height="image.height"
+         :alt="image.alt" >
+    <v-tooltip :text="image.alt" location="top" :disabled="!image.alt" activator="parent"/>
+  </v-img>
 </template>
 
 <style scoped>
