@@ -6,6 +6,8 @@ name: Node.js CI
 on:
   push:
     branches: ["main"]
+  pull_request:
+    branches: ["main"]
   workflow_dispatch:
     inputs:
       update-master:
@@ -30,12 +32,11 @@ jobs:
     environment:
       name: github-pages
       url: ${{steps.deployment.outputs.page_url}}
-      UPDATE_MASTER: ${{github.event.inputs.update-master}}
     steps:
-      - if: $UPDATE_MASTER
+      - if: ${{ !github.event.inputs.update-master }}
         name: Checkout
         uses: actions/checkout@v4
-      - if: $UPDATE_MASTER
+      - if: ${{ !github.event.inputs.update-master }}
         name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Use Node.js 22
@@ -43,12 +44,12 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - if: $UPDATE_MASTER
+      - if: ${{ !github.event.inputs.update-master }}
         run: npm ci
-      - if: $UPDATE_MASTER
+      - if: ${{ !github.event.inputs.update-master }}
         name: build
         run: npm run build
-      - if: $UPDATE_MASTER
+      - if: ${{ !github.event.inputs.update-master }}
         name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
