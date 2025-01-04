@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type {Style} from '@/types/style.ts'
 import StyleImg from '@/components/images/StyleImg.vue'
-import { ref } from 'vue'
+import {nextTick, onMounted, ref, watch} from 'vue'
 import UiImg from '@/components/images/UiImg.vue'
+import {useDisplay} from 'vuetify'
 
 const {style, minWidth} = defineProps({
   style: Object as () => Style,
@@ -11,15 +12,19 @@ const {style, minWidth} = defineProps({
 const lb = defineModel<number|undefined>({required: true})
 const selectImg = ref()
 const clientWidth = ref(selectImg.value?.clientWidth ?? minWidth ?? 0)
-function onResize() {
-  clientWidth.value = selectImg.value?.clientWidth ?? minWidth
-}
+const display = useDisplay()
+onMounted(async () => {
+  await nextTick()
+  watch(display.width, () => {
+    clientWidth.value = selectImg.value?.clientWidth ?? minWidth
+  }, {immediate: true})
+})
 const lbList = ['0　', '1　', '2　', '2.5', '3　', '3.5', '4　']
 </script>
 
 <template>
-  <div ref="selectImg" v-resize="onResize" :style="[minWidth ? `min-width:${minWidth}px` : '']" class="position-relative select-none">
-    <StyleImg type="select" :style="style" :width="clientWidth" />
+  <div ref="selectImg" :style="[minWidth ? `min-width:${minWidth}px` : '']" class="position-relative select-none">
+    <StyleImg type="select" :style="style" default-width/>
     <div class="position-absolute top-0 right-0 mt-1 mr-1 d-flex">
       <UiImg v-for="element in style?.elements ?? []" :width="clientWidth / 10" :element="element" :key="element" />
       <UiImg :width="clientWidth / 10" :style-type="style?.type" />

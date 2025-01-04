@@ -23,8 +23,8 @@ const styleLists = computed(() => allSSStyles.value.reduce<{owner: Style[], unow
   <v-container fluid>
     <v-card title="所持スタイル" class="w-100">
       <v-card-text>
-        <v-row>
-          <v-col v-for="style in styleLists.owner" cols="3" :key="style.id" class="p-2">
+        <v-row no-gutters>
+          <v-col v-for="style in styleLists.owner" cols="6" md="3" :key="style.id" class="pa-1">
             <StyleSelect :style="style" v-model="userStore.lb[style.id]" />
           </v-col>
         </v-row>
@@ -33,8 +33,8 @@ const styleLists = computed(() => allSSStyles.value.reduce<{owner: Style[], unow
     <v-divider class="my-2"/>
     <v-card title="未所持スタイル" class="w-100">
       <v-card-text>
-        <v-row>
-          <v-col v-for="style in styleLists.unowned" cols="3" :key="style.id" class="p-2">
+        <v-row no-gutters class="p-1">
+          <v-col v-for="style in styleLists.unowned" cols="6" md="3" :key="style.id" class="p-2">
             <StyleSelect :style="style" v-model="userStore.lb[style.id]" />
           </v-col>
         </v-row>

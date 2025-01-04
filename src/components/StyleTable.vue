@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type {Style} from '@/types/style.ts'
 import StyleImg from '@/components/images/StyleImg.vue'
-import {computed, ref} from 'vue'
+import {ref} from 'vue'
 import UiImg from '@/components/images/UiImg.vue'
 import {roleColor} from '@/utils.ts'
 import {useViewStore} from '@/stores/view.ts'
@@ -63,7 +63,7 @@ threeMonthAgo.setHours(23, 59, 59, 0)
     <template #item="{props, item}">
       <v-data-table-row v-bind="props" class="styles-table-row" @click="store.detailStyle = item">
         <template #[`item.image`]>
-          <StyleImg type="select" :style="item" :height="50"/>
+          <StyleImg type="select" :style="item" :height="50" />
         </template>
         <template #[`item.id`]>
           <StyleImg type="b" :style="item" :height="50"/>

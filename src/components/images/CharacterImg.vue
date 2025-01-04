@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type {Style} from '@/types/style.ts'
 import {computed} from 'vue'
+import type {Card} from '@/types/character.ts'
 
 const props = defineProps({
-  style: Object as () => Style,
+  card: Object as () => Card,
   type: {
-    type: String as () => 'select' | 'thumbnail' | 'weapon' | 'b',
+    type: String as () => 'select' | 'thumbnail',
     required: true,
   },
   width: Number,
@@ -26,34 +26,19 @@ function calcSize(defaultWidth: number, defaultHeight: number, ratioX: number, r
 
 const image = computed<ImgSrc>(() => {
   const defaultProp = {src: '', aspectRatio: '1:1'}
-  if (!props.style) return defaultProp
-  // https://hbr.quest/pf/31a/RKayamori.webp?62, https://hbr.quest/pf/angelbeats/CathyC.webp?62
-  // https://hbr.quest/hbr/RKayamoriSmallIcon.webp?62
-  // https://hbr.quest/g/RKayamoriProfile.webp?62
+  if (!props.card) return defaultProp
   switch (props.type) {
     case 'select':
       return {
-        src: `https://hbr.quest/hbr/${props.style.bg.replace('.webp', '_Select.webp')}`,
+        src: `https://hbr.quest/hbr/${props.card.image.replace('_Thumbnail.webp', '_Select.webp')}`,
         ...calcSize(356, 144, 89, 36),
-        alt: props.style?.name,
+        alt: props.card?.name,
       }
     case 'thumbnail':
       return {
-        src: `https://hbr.quest/hbr/${props.style.image}`,
+        src: `https://hbr.quest/hbr/${props.card.image}`,
         ...calcSize(184, 184, 1, 1),
-        alt: props.style?.name,
-      }
-    case 'weapon':
-      return {
-        src: `https://hbr.quest/hbr/${props.style.weapon.type}.webp`,
-        ...calcSize(180, 180, 1, 1),
-        alt: props.style?.weapon.name,
-      }
-    case 'b':
-      return {
-        src: `https://hbr.quest/b/${props.style.chara_label}.webp`,
-        ...calcSize(174, 172, 87, 86),
-        alt: props.style?.chara,
+        alt: props.card?.name,
       }
     default:
       return defaultProp

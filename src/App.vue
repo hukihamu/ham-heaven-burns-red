@@ -12,7 +12,8 @@ const tab = ref<string>('')
       <v-app-bar-title class="select-none">Ham HeavenBurnsRed</v-app-bar-title>
       <v-tabs v-model="tab" color="primary">
         <v-tab value="styles" to="/styles" text="スタイル一覧"/>
-        <v-tab value="story" to="/story" text="ストーリー" />
+        <v-tab text="ユーザ情報：" disabled density="compact"/>
+        <v-tab value="story" to="/story" text="ストーリー順" />
         <v-tab value="owner-styles" to="/owner-styles" text="所持SSスタイル" />
         <v-tab value="training" to="/training" text="育成状況" />
       </v-tabs>

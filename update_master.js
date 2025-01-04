@@ -6,6 +6,9 @@ const environment = args[0]
 const dir = environment === 'dev' ? 'public/master' : 'dist/master'
 if (!fs.existsSync(dir)) fs.mkdirSync(dir)
 
-fetch('https://master.hbr.quest/styles.json')
-  .then(res => res.json())
-  .then(json => fs.writeFileSync(`${dir}/styles.json`, JSON.stringify(json, null, 2)))
+const tableList = ['styles', 'events', 'accessories', 'characters']
+for (const table of tableList) {
+  fetch(`https://master.hbr.quest/${table}.json`)
+    .then(res => res.json())
+    .then(json => fs.writeFileSync(`${dir}/${table}.json`, JSON.stringify(json, null, 2)))
+}
