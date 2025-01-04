@@ -6,8 +6,12 @@ name: Node.js CI
 on:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      update-master:
+        description: 'master情報を更新します'
+        default: true
+        type: boolean
 
 # パーミッションの設定
 permissions:
@@ -26,23 +30,31 @@ jobs:
     environment:
       name: github-pages
       url: ${{steps.deployment.outputs.page_url}}
+      UPDATE_MASTER: ${{github.event.inputs.update-master}}
     steps:
-      - name: Checkout
+      - if: $UPDATE_MASTER
+        name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Pages
+      - if: $UPDATE_MASTER
+        name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm ci
-      - name: build
+      - if: $UPDATE_MASTER
+        run: npm ci
+      - if: $UPDATE_MASTER
+        name: build
         run: npm run build
-      - name: Upload artifact
+      - if: $UPDATE_MASTER
+        name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
+      - name: Update Master
+        run: npm run update-master
       - name: Deploy to Github Pages
         id: deployment
         uses: actions/deploy-pages@v4

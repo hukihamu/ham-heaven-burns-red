@@ -30,6 +30,7 @@ const styleLists = computed(() => allSSStyles.value.reduce<{owner: Style[], unow
         </v-row>
       </v-card-text>
     </v-card>
+    <v-divider class="my-2"/>
     <v-card title="未所持スタイル" class="w-100">
       <v-card-text>
         <v-row>
