@@ -12,8 +12,6 @@ on:
     inputs:
       update-master:
         description: 'master情報を更新します'
-        default: true
-        type: boolean
 
 # パーミッションの設定
 permissions:
@@ -33,29 +31,24 @@ jobs:
       name: github-pages
       url: ${{steps.deployment.outputs.page_url}}
     steps:
-      - if: ${{ !github.event.inputs.update-master }}
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v4
-      - if: ${{ !github.event.inputs.update-master }}
-        name: Setup Pages
+      - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'npm'
-      - if: ${{ !github.event.inputs.update-master }}
-        run: npm ci
-      - if: ${{ !github.event.inputs.update-master }}
-        name: build
+      - run: npm ci
+      - name: build
         run: npm run build
-      - if: ${{ !github.event.inputs.update-master }}
-        name: Upload artifact
+      - name: Update Master
+        run: npm run update-master
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
-      - name: Update Master
-        run: npm run update-master
       - name: Deploy to Github Pages
         id: deployment
         uses: actions/deploy-pages@v4
