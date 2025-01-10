@@ -5,7 +5,7 @@ import type {Style} from '@/types/style.ts'
 
 export const useViewStore = defineStore('view', () => {
   const detailStyle = ref<Style>()
-  const id = ref<string | undefined>('a')
+  const id = ref<string | undefined>()
   const hash = ref<string | undefined>()
   function setDetailStyle(style: Style) {
     detailStyle.value = style
