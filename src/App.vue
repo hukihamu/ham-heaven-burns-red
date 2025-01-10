@@ -33,6 +33,7 @@ function onClickLogin() {
       })
     }).then(() => {
       viewStore.getCookie()
+      isUserDialog.value = false
     })
   }
 }
@@ -62,7 +63,6 @@ function onClickLoad() {
       res.json().then(data => {
         userStore.setUserData(data)
         viewStore.getCookie()
-        isUserDialog.value = false
       })
     } else {
       viewStore.getCookie()
