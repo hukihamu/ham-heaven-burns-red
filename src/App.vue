@@ -61,6 +61,8 @@ function onClickLoad() {
     if (res.ok) {
       res.json().then(data => {
         userStore.setUserData(data)
+        viewStore.getCookie()
+        isUserDialog.value = false
       })
     } else {
       viewStore.getCookie()
