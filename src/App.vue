@@ -2,10 +2,8 @@
 import { RouterView } from 'vue-router'
 import {ref} from 'vue'
 import DetailStyleDialog from '@/components/DetailStyleDialog.vue'
-import {useViewStore} from '@/stores/view.ts'
 import {useUserStore} from '@/stores/user.ts'
 
-const viewStore = useViewStore()
 const userStore = useUserStore()
 const tab = ref<string>('')
 const isUserDialog = ref(false)
@@ -26,13 +24,13 @@ function onClickLogin() {
   if (form.value?.validate()) {
     fetch('https://ham-proxy.vercel.app/api/upstash', {
       method: 'POST',
-      credentials: 'include',
       body: JSON.stringify({
         id: id.value,
         pw: password.value,
       })
-    }).then(() => {
-      viewStore.getCookie()
+    }).then(resp => resp.json()).then(data => {
+      userStore.id = data.id
+      userStore.hash = data.hash
       isUserDialog.value = false
     })
   }
@@ -40,39 +38,42 @@ function onClickLogin() {
 function onClickSave() {
   fetch('https://ham-proxy.vercel.app/api/upstash', {
     method: 'PUT',
-    credentials: 'include',
     body: JSON.stringify({
+      hash: userStore.hash,
       data: userStore.getUserData(),
     })
   }).then(res => {
     if (res.ok) {
       onShowAlert('保存成功', 'success')
     } else {
-      viewStore.getCookie()
+      userStore.id = undefined
+      userStore.hash = undefined
       onShowAlert('ログアウトされています', 'warning')
     }
+    isUserDialog.value = false
   })
 }
 function onClickLoad() {
   // TODO 確認
-  fetch('https://ham-proxy.vercel.app/api/upstash', {
+  fetch(`https://ham-proxy.vercel.app/api/upstash?hash=${userStore.hash}`, {
     method: 'GET',
-    credentials: 'include',
   }).then(res => {
     if (res.ok) {
       res.json().then(data => {
         userStore.setUserData(data)
-        viewStore.getCookie()
       })
     } else {
-      viewStore.getCookie()
+      userStore.id = undefined
+      userStore.hash = undefined
       onShowAlert('ログアウトされています', 'warning')
     }
+    isUserDialog.value = false
   })
 }
 function onClickLogout() {
   document.cookie = 'expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'
-  viewStore.getCookie()
+  userStore.id = undefined
+  userStore.hash = undefined
 }
 function onShowAlert(message: string, type: "error" | "success" | "warning" | "info" | undefined) {
   alertMessage.value = message
@@ -91,7 +92,7 @@ function onShowAlert(message: string, type: "error" | "success" | "warning" | "i
       <v-tabs v-model="tab" color="primary">
         <v-tab value="styles" to="/styles" text="スタイル一覧" />
         <v-divider vertical />
-        <v-btn :text="viewStore.id ? `${viewStore.id}：` : 'ユーザ情報：'"
+        <v-btn :text="userStore.id ? `${userStore.id}：` : 'ユーザ情報：'"
                class="h-100"
                @click="isUserDialog = true"/>
         <v-tab value="story" to="/story" text="ストーリー順" />
@@ -106,10 +107,10 @@ function onShowAlert(message: string, type: "error" | "success" | "warning" | "i
     <v-dialog v-model="isUserDialog" max-width="400">
       <v-card>
         <v-card-title>
-          {{viewStore.id ? undefined : 'サインイン/サインアップ'}}
+          {{userStore.id ? undefined : 'サインイン/サインアップ'}}
         </v-card-title>
         <v-card-text>
-          <div v-if="viewStore.id" class="d-flex">
+          <div v-if="userStore.id" class="d-flex">
             <v-btn  text="保存" class="flex-1-1" color="primary" @click="onClickSave" />
             <v-spacer />
             <v-btn text="読込" class="flex-1-1" color="success" @click="onClickLoad" />
@@ -120,7 +121,7 @@ function onShowAlert(message: string, type: "error" | "success" | "warning" | "i
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-btn v-if="viewStore.id"
+          <v-btn v-if="userStore.id"
                  text="ログアウト"
                  color="error"
                  variant="elevated"

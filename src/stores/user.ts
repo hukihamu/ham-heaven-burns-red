@@ -4,6 +4,8 @@ import {ref} from 'vue'
 export const useUserStore = defineStore('user', () => {
   const lb = ref<{ [styleId: number]: number | undefined}>({})
   const readStory = ref<string[]>([])
+  const id = ref<string>()
+  const hash = ref<string>()
 
   function getUserData() {
     return {
@@ -15,5 +17,5 @@ export const useUserStore = defineStore('user', () => {
     lb.value = data.lb
     readStory.value = data.readStory
   }
-  return { lb, readStory, getUserData, setUserData }
+  return { lb, readStory, getUserData, setUserData, id, hash }
 }, {persist: true})
