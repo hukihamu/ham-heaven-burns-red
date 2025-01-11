@@ -21,6 +21,7 @@ const styleLists = computed(() => allSSStyles.value.reduce<{ owner: Style[], uno
 
 <template>
   <v-container fluid>
+    <v-card title="フィルター" subtitle="開発中" class="w-100"></v-card>
     <v-card title="所持スタイル" class="w-100">
       <v-card-text>
         <v-data-iterator :items="styleLists.owner" items-per-page="-1">

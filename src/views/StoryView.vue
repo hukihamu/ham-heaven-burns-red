@@ -17,22 +17,23 @@ const souls = computed(() => masterStore.mAccessories.filter(a => a.image === 'S
     if (f) card = f
     return f
   })
-  return {label: s.label, in_date: s.in_date, title: s.name, image: s.image, card}
+  return {label: s.label, in_date: s.in_date, title: s.name, image: s.image, card, storyType: 'soul'}
 }).reverse())
 const events = computed(() => masterStore.mEvents.filter(e =>
   // 復刻イベは非表示
   !e.label.match('revival')
   // PRは非表示
   && !e.label.match('PR')
-).map(e => ({label: e.label, in_date: e.in_date, title: e.name, logo: e.logo})))
-const stories = computed(() => masterStore.mChapters.map(s => ({label: s.label, in_date: s.in_date, title: s.name, story: s.image})).reverse())
+).map(e => ({label: e.label, in_date: e.in_date, title: e.name, logo: e.logo, storyType: 'event'})))
+const stories = computed(() => masterStore.mChapters
+  .map(s => ({label: s.label, in_date: s.in_date, title: s.name, story: s.image, storyType: 'chapter'})).reverse())
 const showSouls = ref(true)
 const showEvents = ref(true)
 const showStories = ref(true)
-const items = computed<{title: string, label: string, in_date: string, story?: string, logo?: string, image?: string, card?: Card}[]>(() => [
-  ...(showSouls.value ? souls.value : []),
-  ...(showEvents.value ? events.value : []),
-  ...(showStories.value ? stories.value : []),
+const items = computed<{title: string, label: string, in_date: string, story?: string, logo?: string, image?: string, card?: Card, storyType: string}[]>(() => [
+  ...souls.value,
+  ...events.value,
+  ...stories.value,
 ].sort((a, b) => new Date(b.in_date).getTime() - new Date(a.in_date).getTime()))
 
 const isRead = ref(false)
@@ -65,33 +66,40 @@ function onClickItem(event: MouseEvent | KeyboardEvent, index: number) {
             <v-card-subtitle>ctrl + clickで選択より古いストーリーを既読</v-card-subtitle>
           </v-col>
           <v-col>
-            <v-checkbox-btn v-model="showStories" label="メインストーリー" color="primary" />
-            <v-checkbox-btn v-model="showEvents" label="サイドストーリー" color="primary" />
-            <v-checkbox-btn v-model="showSouls" label="メモリーストーリー" color="primary" />
+            <v-switch v-model="showStories" label="メインストーリー" color="primary" hide-details />
+            <v-switch v-model="showEvents" label="サイドストーリー" color="primary" hide-details />
+            <v-switch v-model="showSouls" label="メモリーストーリー" color="primary" hide-details />
           </v-col>
         </v-row>
       </v-card-text>
     </v-card>
-    <v-list v-model:selected="userStore.readStory" selectable select-strategy="leaf" color="secondary">
-      <v-list-item v-for="(item, index) in filterItem" :key="item.label" :title="item.title" :value="item.label" @click="onClickItem($event, index)">
-        <template #prepend="{select, isSelected}">
-          <v-checkbox-btn :model-value="isSelected" @update:model-value="select(!!$event)" />
-          <div v-if="item.logo" class="pre-image">
-            <UiImg :event-logo="item.logo" :width="178"/>
-          </div>
-          <div v-else-if="item.image" class="pre-image">
-            <CharacterImg type="select" :card="item.card" :width="178" class="position-absolute left-0"/>
-            <UiImg :accessory="item.image" :height="72" class="position-absolute left-0"/>
-          </div>
-          <div v-else-if="item.story" class="pre-image justify-item-center">
-            <UiImg :story="item.story" :width="178" :height="72" cover class="object-position-top" />
-          </div>
-        </template>
-        <template #subtitle>
-          {{new Date(item.in_date).toLocaleDateString('ja-jp', {year: 'numeric', month: '2-digit', day: '2-digit' })}}
-        </template>
-      </v-list-item>
-    </v-list>
+    <v-data-iterator :items="filterItem" items-per-page="-1" select-strategy="page"
+                     :search="'' + showStories + showEvents + showSouls"
+                     :custom-filter="(_1, _2, item) => (showStories && item?.raw.storyType === 'chapter') || (showEvents && item?.raw.storyType === 'event') || (showSouls && item?.raw.storyType === 'soul')">
+      <template #default="{items}">
+        <v-list v-model:selected="userStore.readStory" selectable select-strategy="leaf" color="secondary">
+          <v-list-item v-for="(item, index) in items" :key="item.raw.label" :title="item.raw.title" :value="item.raw.label"
+                       @click="onClickItem($event, index)">
+            <template #prepend="{select, isSelected}">
+              <v-checkbox-btn :model-value="isSelected" @update:model-value="select(!!$event)"/>
+              <div v-if="item.raw.logo" class="pre-image">
+                <UiImg :event-logo="item.raw.logo" :width="178"/>
+              </div>
+              <div v-else-if="item.raw.image" class="pre-image">
+                <CharacterImg type="select" :card="item.raw.card" :width="178" class="position-absolute left-0"/>
+                <UiImg :accessory="item.raw.image" :height="72" class="position-absolute left-0"/>
+              </div>
+              <div v-else-if="item.raw.story" class="pre-image justify-item-center">
+                <UiImg :story="item.raw.story" :width="178" :height="72" cover class="object-position-top"/>
+              </div>
+            </template>
+            <template #subtitle>
+              {{new Date(item.raw.in_date).toLocaleDateString('ja-jp', {year: 'numeric', month: '2-digit', day: '2-digit'})}}
+            </template>
+          </v-list-item>
+        </v-list>
+      </template>
+    </v-data-iterator>
   </v-container>
 </template>
 

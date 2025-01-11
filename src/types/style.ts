@@ -1,4 +1,4 @@
-import type {TierType, ElementType, RoleType, StyleType, GrowthAbiType} from '@/types/general.ts'
+import type {TierType, ElementType, RoleType, StyleType, GrowthAbiType, WeaponType} from '@/types/general.ts'
 
 export interface Style {
   id: number // スタイルID
@@ -219,5 +219,3 @@ interface Piece {
 
 type Team = 'Angel Beats' | '31A' | '31B' | '31C' | '31D' | '31E' | '31F' | '31X' | '30G'
 
-
-type WeaponType = 'DoubleSword' | 'Shield' | string

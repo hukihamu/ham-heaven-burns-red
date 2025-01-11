@@ -7,7 +7,13 @@ import StyleTable from '@/components/StyleTable.vue'
 import type {FilterModelType} from '@/types/general.ts'
 
 const masterStore = useMasterStore()
-const filters = ref<FilterModelType>({element: [], tier: [], role: []})
+const filters = ref<FilterModelType>({
+  element: [],
+  tier: [],
+  role: [],
+  weapon: [],
+  styleType: [],
+})
 masterStore.init('styles')
 
 </script>

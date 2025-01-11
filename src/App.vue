@@ -94,10 +94,11 @@ function onShowAlert(message: string, type: "error" | "success" | "warning" | "i
         <v-divider vertical />
         <v-btn :text="userStore.id ? `${userStore.id}：` : 'ユーザ情報：'"
                class="h-100"
+               color="secondary"
                @click="isUserDialog = true"/>
         <v-tab value="story" to="/story" text="ストーリー順" />
         <v-tab value="owner-styles" to="/owner-styles" text="所持SSスタイル" />
-        <v-tab value="training" to="/training" text="育成状況" />
+        <v-tab value="training" to="/training" text="育成状況" disabled/>
       </v-tabs>
     </v-app-bar>
     <v-main>
@@ -106,9 +107,8 @@ function onShowAlert(message: string, type: "error" | "success" | "warning" | "i
     <DetailStyleDialog />
     <v-dialog v-model="isUserDialog" max-width="400">
       <v-card>
-        <v-card-title>
-          {{userStore.id ? undefined : 'サインイン/サインアップ'}}
-        </v-card-title>
+        <v-card-title>簡易保存機能</v-card-title>
+        <v-card-subtitle>簡易的に他端末でもユーザデータを共有できます</v-card-subtitle>
         <v-card-text>
           <div v-if="userStore.id" class="d-flex">
             <v-btn  text="保存" class="flex-1-1" color="primary" @click="onClickSave" />
@@ -136,11 +136,11 @@ function onShowAlert(message: string, type: "error" | "success" | "warning" | "i
     </v-dialog>
     <v-tooltip :model-value="isShowAlert"
                activator="parent"
-               origin="bottom end"
+               origin="bottom center"
                :open-on-hover="false"
                content-class="bg-transparent"
-               location="end bottom">
-      <v-alert :type="alertType" :text="alertMessage" />
+               location="bottom">
+      <v-alert :type="alertType" :text="alertMessage" width="80vw" />
     </v-tooltip>
   </v-app>
 </template>

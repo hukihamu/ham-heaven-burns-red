@@ -21,7 +21,6 @@ const headers = [
   { title: 'ロール', key: 'role', align: 'center' },
   { title: '属性', key: 'type', align: 'center' },
   { title: '元素', key: 'elements', align: 'center' },
-  { title: '宝珠', key: 'growth_abi', align: 'center' },
   { title: '実装日', key: 'in_date' },
 ]
 const sortBy = ref<{key: string, order?: 'asc' | 'desc'}[]>([])
@@ -34,7 +33,8 @@ function onFilter(_1: string, _2: string, item: any): boolean {
   flag = filters.tier.length > 0 ? flag && filters.tier.includes(style.tier) : flag
   flag = filters.element.length > 0 ? flag && (style.elements.length === 0 && filters.element.includes('Nonelement') || style.elements.some(element => filters.element.includes(element))) : flag
   flag = filters.role.length > 0 ? flag && filters.role.includes(style.role) : flag
-
+  flag = filters.weapon.length > 0 ? flag && filters.weapon.includes(style.weapon.type) : flag
+  flag = filters.styleType.length > 0 ? flag && filters.styleType.includes(style.type) : flag
   return flag
 }
 const threeMonthAgo = new Date()
@@ -53,7 +53,7 @@ threeMonthAgo.setHours(23, 59, 59, 0)
                 fixed-footer
                 hover
                 mobile-breakpoint="md"
-                items-per-page="30"
+                items-per-page="20"
                 select-strategy="single"
                 hide-default-footer
                 :search="JSON.stringify(filters)"
@@ -91,9 +91,6 @@ threeMonthAgo.setHours(23, 59, 59, 0)
         <!-- eslint-disable-next-line vue/valid-v-slot -->
         <template #[`item.type`]>
           <UiImg :styleType="item.type" :height="50"/>
-        </template>
-        <template #[`item.growth_abi`]>
-          <UiImg :growth-abi-type="item.growth_abi?.l" :alt="item.growth_abi?.n" :height="50"/>
         </template>
         <template #[`item.in_date`]>
           <span :class="{'text-primary': new Date(item.in_date).getTime() > threeMonthAgo.getTime() }">

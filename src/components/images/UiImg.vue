@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed} from 'vue'
-import type {ElementType, GrowthAbiType, RoleType, SkillType, StyleType, TierType} from '@/types/general.ts'
+import type {ElementType, GrowthAbiType, RoleType, SkillType, StyleType, TierType, WeaponType} from '@/types/general.ts'
 
 const props = defineProps({
   tier: String as () => TierType,
@@ -8,6 +8,7 @@ const props = defineProps({
   styleType: String as () => StyleType,
   growthAbiType: String as () => GrowthAbiType,
   skillType: String as () => SkillType,
+  weaponType: String as () => WeaponType,
   role: String as () => RoleType,
   allow: String as () => 'Up' | 'Down',
   story: String,
@@ -84,6 +85,11 @@ const image = computed<ImgSrc>(() => {
   if (props.eventLogo) return {
     src: `https://hbr.quest/hbr/${props.eventLogo}`,
     ...calcSize(184, 184, 1, 1),
+    alt: props.alt,
+  }
+  if (props.weaponType) return {
+    src: `https://hbr.quest/hbr/${props.weaponType}.webp`,
+    ...calcSize(180, 180, 1, 1),
     alt: props.alt,
   }
   return {

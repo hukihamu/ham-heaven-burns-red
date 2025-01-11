@@ -5,7 +5,7 @@ import {computed} from 'vue'
 const props = defineProps({
   style: Object as () => Style,
   type: {
-    type: String as () => 'select' | 'thumbnail' | 'weapon' | 'b',
+    type: String as () => 'select' | 'thumbnail' | 'weapon' | 'b' | 'bg' | 'party',
     required: true,
   },
   width: Number,
@@ -48,6 +48,16 @@ const image = computed<ImgSrc>(() => {
         src: `https://hbr.quest/hbr/${props.style.weapon.type}.webp`,
         ...calcSize(180, 180, 1, 1),
         alt: props.style?.weapon.name,
+      }
+    case 'bg':
+      return {
+        src: `https://hbr.quest/hbr/${props.style.bg}`,
+        ...calcSize(1920, 1080, 16, 9),
+      }
+    case 'party':
+      return {
+        src: `https://hbr.quest/hbr/${props.style.bg.replace('.webp', '_Party.webp')}`,
+        ...calcSize(244, 480, 61, 120),
       }
     case 'b':
       return {
