@@ -1,4 +1,4 @@
-import type {TierType, ElementType, RoleType, StyleType, GrowthAbiType, WeaponType} from '@/types/general.ts'
+import type {TierType, ElementType, RoleType, StyleType, GrowthAbiType, WeaponType, TeamType} from '@/types/general.ts'
 
 export interface Style {
   id: number // スタイルID
@@ -9,7 +9,7 @@ export interface Style {
   lmv: string | null // Live2D動画?
   lvl: string | null // 取得映像?
   lvt: string | null // 取得時台詞?
-  team: Team // 所属部隊
+  team: TeamType // 所属部隊
   chara: string // キャラ名(ローマ字表記あり)
   chara_label: string // キャラの一意ラベル
   chara_icon: string // キャラアイコン画像
@@ -217,5 +217,4 @@ interface Piece {
   almightyRate: number
 }
 
-type Team = 'Angel Beats' | '31A' | '31B' | '31C' | '31D' | '31E' | '31F' | '31X' | '30G'
 

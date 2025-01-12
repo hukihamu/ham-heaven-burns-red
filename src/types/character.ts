@@ -1,3 +1,5 @@
+import type {TeamType} from '@/types/general.ts'
+
 export interface Character {
   id: number
   image: string
@@ -5,7 +7,7 @@ export interface Character {
   label: string
   name: string
   ruby: string
-  team: string
+  team: TeamType
   profile: unknown
   cards: Card[]
   restrict: unknown[]

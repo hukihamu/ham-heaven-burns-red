@@ -1,39 +1,16 @@
-# vue-project
-
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+# ham-heaven-burns-red
+ヘブバン育成情報を管理する
+あわよくば手持ちの状況から自動編成ができるようにしたい
+## TODO
+- 育成情報
+  - スタイル・キャラごと表示と、各育成状態の切り替えができるように(スタイル・キャラごと表示で入力し、各育成状況で確認したい)
+  - 各オーブ育成
+  - 宝珠育成
+  - ジェネライズ育成
+  - Exスキル進化
+  - 才能開花
+- 自動編成
+  - 所持スタイルに合わせて編成
+- 全所持スタイルを1画面で表示
+  - 画像出力対応
+- スタイル一覧はSS実装順に変更(ダウンスケール)
