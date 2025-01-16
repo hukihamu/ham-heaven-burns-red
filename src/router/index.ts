@@ -1,29 +1,25 @@
 import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
-import SSStylesView from '@/views/SSStylesView.vue'
-import TrainingStylesView from '@/views/TrainingStylesView.vue'
-import TrainingCharactersView from '@/views/TrainingCharactersView.vue'
-import StoriesView from '@/views/StoriesView.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
     path: '/ss-styles',
     name: 'ss-styles',
-    component: () => SSStylesView,
+    component: () => import('@/views/SSStylesView.vue'),
   },
   {
     path: '/stories',
     name: 'stories',
-    component: () => StoriesView,
+    component: () => import('@/views/StoriesView.vue'),
   },
   {
     path: '/training-styles',
     name: 'training-styles',
-    component: () => TrainingStylesView,
+    component: () => import('@/views/TrainingStylesView.vue'),
   },
   {
     path: '/training-characters',
     name: 'training-characters',
-    component: () => TrainingCharactersView,
+    component: () => import('@/views/TrainingCharactersView.vue'),
   },
   {
     path: '/training',
