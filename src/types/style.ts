@@ -85,7 +85,7 @@ interface SkillPassive {
   effect: string
   auto_type: string
 }
-interface Skill {
+export interface Skill {
   id: number
   label: string
   name: string

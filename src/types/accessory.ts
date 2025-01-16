@@ -1,3 +1,5 @@
+import type {Skill} from '@/types/style.ts'
+
 export interface Accessory {
   id: number
   in_date: string
@@ -11,5 +13,5 @@ export interface Accessory {
   condition: string
   effects: unknown[]
   rng_eff: unknown[]
-  skill: unknown[]
+  skill: Skill[]
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed} from 'vue'
 import type {TeamType} from '@/types/general.ts'
-type ImageType = 'select' | 'allow' | 'new' | 'team' | 'character-badges'
+type ImageType = 'select' | 'allow' | 'new' | 'team' | 'character-badges' | 'hbr'
 const props = defineProps({
   type: {
     type: String as () => ImageType,
@@ -14,6 +14,7 @@ const props = defineProps({
   allow: String as () => 'Up' | 'Down',
   team: String as () => TeamType,
   characterLabel: String,
+  hbr: String,
 })
 function calcWidth(defaultWidth: number, defaultHeight: number) {
   if (props.width) return props.width
@@ -43,6 +44,10 @@ const imageAttr = computed<{src: string, width: number}>(() => {
     case 'character-badges':
       attr.src = `https://hbr.quest/b/${props.characterLabel}.webp`
       attr.width = calcWidth(174, 172)
+      break
+    case 'hbr':
+      attr.src = `https://hbr.quest/hbr/${props.hbr}`
+      attr.width = calcWidth(184, 184) // Orb基準
       break
   }
 
