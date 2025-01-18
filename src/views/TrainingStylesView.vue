@@ -41,7 +41,7 @@ function countLB(id: number, isUp: boolean) {
         <!--TODO-->
       </v-card-subtitle>
       <v-card-text>
-        <v-card text="所持スタイル">
+        <v-card title="所持スタイル" :subtitle="`${styleLists.owner.length}/${allSSStyles.length} ${(styleLists.owner.length/allSSStyles.length*100).toFixed(2)}%`">
           <v-card-text>
             <v-data-iterator :items="styleLists.owner" items-per-page="-1">
               <template #default="{items}">
@@ -71,7 +71,7 @@ function countLB(id: number, isUp: boolean) {
             </v-data-iterator>
           </v-card-text>
         </v-card>
-        <v-card text="未所持スタイル">
+        <v-card title="未所持スタイル">
           <v-card-text>
             <v-data-iterator :items="styleLists.unowned" items-per-page="-1">
               <template #default="{items}">

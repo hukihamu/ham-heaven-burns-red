@@ -53,6 +53,9 @@ function countOrb(orb: Orb, character: Character, isUp: boolean) {
     user.orbs[character.label][orb.label] = isUp ? 1 : 0
   }
 }
+function getCountOrb(label: string): number {
+  return Object.values(user.orbs[label]).filter(it => it === 1).length
+}
 </script>
 
 <template>
@@ -69,10 +72,20 @@ function countOrb(orb: Orb, character: Character, isUp: boolean) {
       <v-slide-group>
         <v-slide-group-item v-for="character in teams[team]" :key="character.id" :value="character.id">
           <v-card>
-            <v-card-title class="d-flex">
-              <SeraphDBImage type="character-badges" :character-label="character.label" :width="64" class="flex-grow-0" />
-              <div>{{character.name.match(/.+?(?= —)/)?.[0]}}</div>
-            </v-card-title>
+            <template #title>
+              <div class="d-flex">
+                <SeraphDBImage type="character-badges" :character-label="character.label" :width="64" class="flex-grow-0" />
+                <div>
+                  <v-card-title>
+                    {{character.name.match(/.+?(?= —)/)?.[0]}}
+                  </v-card-title>
+                  <v-card-subtitle>
+                    {{getCountOrb(character.label)}}/{{orbs.length}} {{(getCountOrb(character.label)/orbs.length*100).toFixed(2)}}%
+                  </v-card-subtitle>
+                </div>
+              </div>
+
+            </template>
             <v-card-text>
               <v-row>
                 <v-data-iterator :items="orbs" items-per-page="-1">

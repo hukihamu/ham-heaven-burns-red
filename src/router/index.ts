@@ -26,9 +26,14 @@ export const routes: RouteRecordRaw[] = [
     name: 'training',
     children: [
       {
-        path: '/limit-break',
+        path: '/training/limit-break',
         name: 'limit-break',
         component: () => import('@/views/LimitBreakView.vue'),
+      },
+      {
+        path: '/training/orb',
+        name: 'orb',
+        component: () => import('@/views/OrbView.vue'),
       },
     ],
   },

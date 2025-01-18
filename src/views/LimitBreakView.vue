@@ -9,7 +9,8 @@ import SeraphDBImage from '@/components/SeraphDBImage.vue'
 const master = useMasterStore()
 master.init('styles')
 const user = useUserStore()
-const lb = computed(() => master.mStyles.filter(it => it.tier === 'SS').reduce<{[id: number]: Style[]}>((pre, cur) => {
+const allSSStyle = computed(() => master.mStyles.filter(it => it.tier === 'SS'))
+const lb = computed(() => allSSStyle.value.reduce<{[id: number]: Style[]}>((pre, cur) => {
   const lbCount = user.lb[cur.id]
   if (!pre[lbCount ?? 10]) pre[lbCount ?? 10] = []
   pre[lbCount ?? 10].push(cur)
@@ -54,7 +55,13 @@ const lb6 = computed({
 <v-container fluid>
   <v-slide-group>
     <v-slide-group-item>
-      <v-card title="未取得">
+      <v-card border>
+        <v-card-title class="text-center">
+          未所持
+        </v-card-title>
+        <v-card-subtitle class="text-center">
+          {{lbN.length}}/{{allSSStyle.length}} {{(lbN.length/allSSStyle.length*100).toFixed(2)}}%
+        </v-card-subtitle>
         <v-card-text>
           <VueDraggable v-model="lbN" group="lb">
             <v-list-item v-for="style in lbN" :key="style.id">
@@ -67,7 +74,13 @@ const lb6 = computed({
       </v-card>
     </v-slide-group-item>
     <v-slide-group-item>
-      <v-card title="0凸">
+      <v-card border>
+        <v-card-title class="text-center">
+          0凸
+        </v-card-title>
+        <v-card-subtitle class="text-center">
+          {{lb0.length}}/{{allSSStyle.length}} {{(lb0.length/allSSStyle.length*100).toFixed(2)}}%
+        </v-card-subtitle>
         <v-card-text>
           <VueDraggable v-model="lb0" group="lb">
             <v-list-item v-for="style in lb0" :key="style.id">
@@ -80,7 +93,13 @@ const lb6 = computed({
       </v-card>
     </v-slide-group-item>
     <v-slide-group-item>
-      <v-card title="1凸">
+      <v-card border>
+        <v-card-title class="text-center">
+          1凸
+        </v-card-title>
+        <v-card-subtitle class="text-center">
+          {{lb1.length}}/{{allSSStyle.length}} {{(lb1.length/allSSStyle.length*100).toFixed(2)}}%
+        </v-card-subtitle>
         <v-card-text>
           <VueDraggable v-model="lb1" group="lb">
             <v-list-item v-for="style in lb1" :key="style.id">
@@ -93,7 +112,13 @@ const lb6 = computed({
       </v-card>
     </v-slide-group-item>
     <v-slide-group-item>
-      <v-card title="2凸">
+      <v-card border>
+        <v-card-title class="text-center">
+          2凸
+        </v-card-title>
+        <v-card-subtitle class="text-center">
+          {{lb2.length}}/{{allSSStyle.length}} {{(lb2.length/allSSStyle.length*100).toFixed(2)}}%
+        </v-card-subtitle>
         <v-card-text>
           <VueDraggable v-model="lb2" group="lb">
             <v-list-item v-for="style in lb2" :key="style.id">
@@ -106,7 +131,13 @@ const lb6 = computed({
       </v-card>
     </v-slide-group-item>
     <v-slide-group-item>
-      <v-card title="2.5凸">
+      <v-card border>
+        <v-card-title class="text-center">
+          2.5凸
+        </v-card-title>
+        <v-card-subtitle class="text-center">
+          {{lb3.length}}/{{allSSStyle.length}} {{(lb3.length/allSSStyle.length*100).toFixed(2)}}%
+        </v-card-subtitle>
         <v-card-text>
           <VueDraggable v-model="lb3" group="lb">
             <v-list-item v-for="style in lb3" :key="style.id">
@@ -119,7 +150,13 @@ const lb6 = computed({
       </v-card>
     </v-slide-group-item>
     <v-slide-group-item>
-      <v-card title="3凸">
+      <v-card border>
+        <v-card-title class="text-center">
+          3凸
+        </v-card-title>
+        <v-card-subtitle class="text-center">
+          {{lb4.length}}/{{allSSStyle.length}} {{(lb4.length/allSSStyle.length*100).toFixed(2)}}%
+        </v-card-subtitle>
         <v-card-text>
           <VueDraggable v-model="lb4" group="lb">
             <v-list-item v-for="style in lb4" :key="style.id">
@@ -132,7 +169,13 @@ const lb6 = computed({
       </v-card>
     </v-slide-group-item>
     <v-slide-group-item>
-      <v-card title="3.5凸">
+      <v-card border>
+        <v-card-title class="text-center">
+          3.5凸
+        </v-card-title>
+        <v-card-subtitle class="text-center">
+          {{lb5.length}}/{{allSSStyle.length}} {{(lb5.length/allSSStyle.length*100).toFixed(2)}}%
+        </v-card-subtitle>
         <v-card-text>
           <VueDraggable v-model="lb5" group="lb">
             <v-list-item v-for="style in lb5" :key="style.id">
@@ -145,7 +188,13 @@ const lb6 = computed({
       </v-card>
     </v-slide-group-item>
     <v-slide-group-item>
-      <v-card title="4凸">
+      <v-card border>
+        <v-card-title class="text-center">
+          4凸
+        </v-card-title>
+        <v-card-subtitle class="text-center">
+          {{lb6.length}}/{{allSSStyle.length}} {{(lb6.length/allSSStyle.length*100).toFixed(2)}}%
+        </v-card-subtitle>
         <v-card-text>
           <VueDraggable v-model="lb6" group="lb">
             <v-list-item v-for="style in lb6" :key="style.id">

@@ -21,7 +21,8 @@ function getRouteTitle(route?: string | symbol): string {
     'styles-share': '所持スタイル共有',
     'training-characters': 'キャラクター育成',
     'training': '育成状況',
-    'limit-break': 'SS凸状況',
+    'limit-break': '凸別状況',
+    'orb': 'オーブ別状況',
   }
   return routeNames[route ?? '']
 }
