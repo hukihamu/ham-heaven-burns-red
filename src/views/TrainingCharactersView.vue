@@ -78,12 +78,13 @@ function countOrb(orb: Orb, character: Character, isUp: boolean) {
                 <v-data-iterator :items="orbs" items-per-page="-1">
                   <template #default="{items}">
                     <v-list>
-                      <v-list-item v-for="orb in items" :key="orb.raw.label" :title="orb.raw.skillName">
-                        <template #subtitle>
-                          <v-list-item-subtitle class="subtitle">
-                            {{orb.raw.skillDesc}}
-                          </v-list-item-subtitle>
-                        </template>
+                      <v-list-item v-for="orb in items" :key="orb.raw.label">
+                        <v-list-item-title class="rem-08">
+                          {{orb.raw.skillName}}
+                        </v-list-item-title>
+                        <v-list-item-subtitle class="subtitle rem-07">
+                          {{orb.raw.skillDesc}}
+                        </v-list-item-subtitle>
                         <template #append>
                           <div class="d-flex">
                             <v-hover>
@@ -122,5 +123,11 @@ function countOrb(orb: Orb, character: Character, isUp: boolean) {
   height: 32px;
   white-space: pre;
   -webkit-line-clamp: 2;
+}
+.rem-08 {
+  font-size: 0.8rem;
+}
+.rem-07 {
+  font-size: 0.7rem;
 }
 </style>

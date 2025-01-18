@@ -18,10 +18,10 @@ function getRouteTitle(route?: string | symbol): string {
     'stories': 'ストーリー順',
     'training-styles': 'スタイル育成',
     'styles-owner': '所持SSスタイル',
-    'styles-limit-break': 'SS凸状況',
     'styles-share': '所持スタイル共有',
     'training-characters': 'キャラクター育成',
     'training': '育成状況',
+    'limit-break': 'SS凸状況',
   }
   return routeNames[route ?? '']
 }

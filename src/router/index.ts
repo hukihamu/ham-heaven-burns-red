@@ -24,7 +24,13 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/training',
     name: 'training',
-    children: [],
+    children: [
+      {
+        path: '/limit-break',
+        name: 'limit-break',
+        component: () => import('@/views/LimitBreakView.vue'),
+      },
+    ],
   },
 ]
 
