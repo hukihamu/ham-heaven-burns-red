@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {useUserStore} from '@/stores/user.ts'
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import {type SubmitEventPromise, useDisplay} from 'vuetify'
 import {useRouter} from 'vue-router'
 import {routes} from '@/router'
@@ -17,12 +17,14 @@ function getRouteTitle(route?: string | symbol): string {
     'ss-styles': 'SSスタイル実装順',
     'stories': 'ストーリー順',
     'training-styles': 'スタイル育成',
-    'styles-owner': '所持SSスタイル',
-    'styles-share': '所持スタイル共有',
     'training-characters': 'キャラクター育成',
     'training': '育成状況',
     'limit-break': '凸別状況',
-    'orb': 'オーブ別状況',
+    'orb': 'オーブ',
+    'generalize': 'ジェネライズ',
+    'ex-skill-evo': 'EXスキル進化',
+    'growth': '宝珠',
+    'passive-rank': 'アビリティ優先順位',
   }
   return routeNames[route ?? '']
 }
@@ -40,6 +42,7 @@ const passwordRules = [(v: string) => !!v || 'passwordを入力してくださ�
 const isConfirm = ref(false)
 const confirmText = ref('')
 const confirmOK = ref(() => {})
+const atLasted = computed(() => user.atLasted ? new Date(user.atLasted).toLocaleString() : '未保存')
 
 function onLogin(event: SubmitEventPromise) {
   event.then((e) => {
@@ -73,10 +76,12 @@ function onLoad() {
   }).then(res => {
     if (res.ok) {
       res.json().then(data => {
-        user.setUserData(data)
-        snackbarType.value = 'success'
-        snackbarText.value = '読込が完了しました'
-        isSnackbar.value = true
+        onConfirm(`読込を実行します。\nlocal\t\t: ${atLasted.value}\nserver\t: ${data.atLasted ? new Date(data.atLasted).toLocaleString() : '未保存'}`, () => {
+          user.setUserData(data)
+          snackbarType.value = 'success'
+          snackbarText.value = '読込が完了しました'
+          isSnackbar.value = true
+        })
       })
     } else {
       user.id = undefined
@@ -120,10 +125,10 @@ function onLogout() {
 <template>
   <v-navigation-drawer v-model="modelValue" :mobile="mobile && currentRoute.path !== '/'" :style="{width: currentRoute.path === '/' ? '100%' : '300px'}" width="300">
     <v-list>
-      <v-list-item v-if="user.id" :title="user.id">
+      <v-list-item v-if="user.id" :title="user.id" :subtitle="atLasted">
         <div class="d-flex justify-space-evenly">
-          <v-btn text="保存" color="success" variant="outlined" @click="onConfirm('保存', onSave)" />
-          <v-btn text="読込" color="info" variant="outlined" @click="onConfirm('読込', onLoad)" />
+          <v-btn text="保存" color="success" variant="outlined" @click="onConfirm('保存を実行します。', onSave)" />
+          <v-btn text="読込" color="info" variant="outlined" @click="onLoad" />
           <v-btn text="logout" color="warning" variant="outlined" @click="onConfirm('ログアウト', onLogout)" />
         </div>
       </v-list-item>
@@ -170,7 +175,7 @@ function onLogout() {
   </v-snackbar>
   <v-dialog v-model="isConfirm" width="300">
     <v-card title="確認">
-      <v-card-text>{{ confirmText }}を実行します。</v-card-text>
+      <v-card-text class="whitespace-pre">{{ confirmText }}</v-card-text>
       <v-card-actions>
         <v-btn text="OK" color="info" @click="confirmOK" />
         <v-btn text="Cancel" @click="isConfirm = false" />
@@ -180,5 +185,8 @@ function onLogout() {
 </template>
 
 <style scoped>
-
+.whitespace-pre {
+  white-space: pre;
+  -webkit-line-clamp: 2;
+}
 </style>

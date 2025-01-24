@@ -33,7 +33,7 @@ export interface Style {
   passives: Passive[] // 初期パッシブ情報
   generalize: boolean // ジェネライズ有無
 }
-interface Passive {
+export interface Passive {
   category: 'Passive'
   id: number
   label: string
@@ -140,20 +140,8 @@ interface BonusPerLevel {
   level_cap: number
   bonus: (AbilityBonus | PassiveBonus)[]
 }
-interface PassiveBonus {
-  category: 'Passive'
-  id: number
-  label: string
-  name: string
-  desc: string
-  info: string
-  timing: string
-  condition: string
-  activ_rate: number
-  effect: string
-  auto_type: string
+interface PassiveBonus extends Passive{
   parts: Part[]
-  in_date: string
   ct: string
 }
 interface AbilityBonus {

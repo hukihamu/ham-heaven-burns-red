@@ -37,6 +37,11 @@ export const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    path: '/passive-rank',
+    name: 'passive-rank',
+    component: () => import('@/views/PassiveRankView.vue'),
+  }
 ]
 
 const router = createRouter({
