@@ -41,42 +41,43 @@ const passiveOrder = computed(() => allSSStyle.value.reduce<{[styleId: number]: 
   return acc
 }, {}))
 const lb = computed(() => allSSStyle.value.reduce<{[id: number]: Style[]}>((pre, cur) => {
-  const lbCount = user.lb[cur.id]
+  user.initStyle(cur.id)
+  const lbCount = user.styles[cur.id].lb
   if (!pre[lbCount ?? 10]) pre[lbCount ?? 10] = []
   pre[lbCount ?? 10].push(cur)
   return pre
 }, {}))
 const lbN = computed({
   get: () => isPassive.value ? [...(lb.value[10] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[10] ?? []),
-  set: newValue => {newValue.forEach(it => user.lb[it.id] = undefined)}
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = undefined)}
 })
 const lb0 = computed({
   get: () => isPassive.value ? [...(lb.value[0] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[0] ?? []),
-  set: newValue => {newValue.forEach(it => user.lb[it.id] = 0)}
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 0)}
 })
 const lb1 = computed({
   get: () => isPassive.value ? [...(lb.value[1] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[1] ?? []),
-  set: newValue => {newValue.forEach(it => user.lb[it.id] = 1)}
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 1)}
 })
 const lb2 = computed({
   get: () => isPassive.value ? [...(lb.value[2] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[2] ?? []),
-  set: newValue => {newValue.forEach(it => user.lb[it.id] = 2)}
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 2)}
 })
 const lb3 = computed({
   get: () => isPassive.value ? [...(lb.value[3] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[3] ?? []),
-  set: newValue => {newValue.forEach(it => user.lb[it.id] = 3)}
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 3)}
 })
 const lb4 = computed({
   get: () => isPassive.value ? [...(lb.value[4] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[4] ?? []),
-  set: newValue => {newValue.forEach(it => user.lb[it.id] = 4)}
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 4)}
 })
 const lb5 = computed({
   get: () => isPassive.value ? [...(lb.value[5] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[5] ?? []),
-  set: newValue => {newValue.forEach(it => user.lb[it.id] = 5)}
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 5)}
 })
 const lb6 = computed({
   get: () => isPassive.value ? [...(lb.value[6] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[6] ?? []),
-  set: newValue => {newValue.forEach(it => user.lb[it.id] = 6)}
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 6)}
 })
 </script>
 

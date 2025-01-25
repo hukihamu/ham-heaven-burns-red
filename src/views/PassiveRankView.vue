@@ -39,7 +39,9 @@ const allPassives = computed(() => master.mStyles
     })
     return acc
   }, {}))
-const p = computed(() => Object.keys(allPassives.value).map(it => parseInt(it)).sort((a, b) => allPassives.value[a].info.localeCompare(allPassives.value[b].info)))
+const p = computed(() => Object.keys(allPassives.value)
+  .map(it => parseInt(it))
+  .sort((a, b) => allPassives.value[a].effect.split('').reverse().join('') > allPassives.value[b].effect.split('').reverse().join('') ? 1 : -1))
 const pN = computed({
   get: () => p.value.filter(id => !user.passiveRank['1'].includes(id) && !user.passiveRank['2'].includes(id) && !user.passiveRank['3'].includes(id)),
   set: () => {},

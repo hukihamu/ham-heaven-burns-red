@@ -11,7 +11,7 @@ const master = useMasterStore()
 master.init('styles')
 const allSSStyles = computed<Style[]>(() => master.mStyles.filter(s => s.tier === 'SS'))
 const styleLists = computed(() => allSSStyles.value.reduce<{ owner: Style[], unowned: Style[] }>((acc, style) => {
-  if (user.lb[style.id] === undefined) {
+  if (user.styles[style.id]?.lb === undefined) {
     acc.unowned.push(style)
   } else {
     acc.owner.push(style)
@@ -20,14 +20,15 @@ const styleLists = computed(() => allSSStyles.value.reduce<{ owner: Style[], uno
 }, {owner: [], unowned: []}))
 const lbTexts = ['0', '1', '2', '2.5', '3', '3.5', '4']
 function countLB(id: number, isUp: boolean) {
-  if (user.lb[id] === undefined) {
-    user.lb[id] = 0
-  } else if (user.lb[id] === 0 && !isUp) {
-    user.lb[id] = undefined
-  } else if (user.lb[id] < 6 && isUp) {
-    user.lb[id]++
+  user.initStyle(id)
+  if (user.styles[id].lb === undefined) {
+    user.styles[id].lb = 0
+  } else if (user.styles[id].lb === 0 && !isUp) {
+    user.styles[id].lb = undefined
+  } else if (user.styles[id].lb < 6 && isUp) {
+    user.styles[id].lb++
   } else if (!isUp){
-    user.lb[id]--
+    user.styles[id].lb--
   }
 }
 </script>
@@ -62,7 +63,7 @@ function countLB(id: number, isUp: boolean) {
                         </v-hover>
                       </v-sheet>
                       <v-sheet position="absolute" location="left center" color="transparent" class="ms-11 text-outline">
-                        Lv.{{lbTexts[user.lb[style.raw.id] ?? 0]}}
+                        Lv.{{lbTexts[user.styles[style.raw.id].lb ?? 0]}}
                       </v-sheet>
                     </v-sheet>
                   </v-col>

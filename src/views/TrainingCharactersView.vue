@@ -24,7 +24,7 @@ const orbs = computed<Orb[]>(() => master.mAccessories
   .filter(it => it.label.match('Acc.Orb'))
   .map(it => ({label: it.label, name: it.name, skillName: it.skill[0]?.name, skillDesc: it.skill[0]?.desc, image: it.image})))
 function getOrbTraining(orb: Orb, character: Character): string {
-  switch (user.orbs[character.label]?.[orb.label]) {
+  switch (user.characters[character.label].orbs?.[orb.label]) {
     case 1:
       return '育成済'
     case 0:
@@ -34,7 +34,7 @@ function getOrbTraining(orb: Orb, character: Character): string {
   }
 }
 function getOrbOpacity(orb: Orb, character: Character): {opacity: number} {
-  switch (user.orbs[character.label]?.[orb.label]) {
+  switch (user.characters[character.label].orbs?.[orb.label]) {
     case 1:
       return {opacity: 1}
     case 0:
@@ -44,17 +44,19 @@ function getOrbOpacity(orb: Orb, character: Character): {opacity: number} {
   }
 }
 function countOrb(orb: Orb, character: Character, isUp: boolean) {
-  if (!user.orbs[character.label]) user.orbs[character.label] = {}
-  if (user.orbs[character.label][orb.label] === undefined) {
-    user.orbs[character.label][orb.label] = isUp ? 0 : undefined
-  } else if (user.orbs[character.label][orb.label] === 0) {
-    user.orbs[character.label][orb.label] = isUp ? 1 : undefined
-  } else if (user.orbs[character.label][orb.label] === 1) {
-    user.orbs[character.label][orb.label] = isUp ? 1 : 0
+  user.initCharacter(character.label)
+  const temp = user.characters[character.label].orbs ?? {}
+  if (temp[orb.label] === undefined) {
+    temp[orb.label] = isUp ? 0 : undefined
+  } else if (temp[orb.label] === 0) {
+    temp[orb.label] = isUp ? 1 : undefined
+  } else if (temp[orb.label] === 1) {
+    temp[orb.label] = isUp ? 1 : 0
   }
+  user.characters[character.label].orbs = temp
 }
 function getCountOrb(label: string): number {
-  return Object.values(user.orbs[label]).filter(it => it === 1).length
+  return Object.values(user.characters[label]?.orbs ?? {}).filter(it => it === 1).length
 }
 </script>
 

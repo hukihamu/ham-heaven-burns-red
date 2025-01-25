@@ -4,7 +4,7 @@ import {useUserStore} from '@/stores/user.ts'
 import {computed, ref} from 'vue'
 import {type SubmitEventPromise, useDisplay} from 'vuetify'
 import {useRouter} from 'vue-router'
-import {routes} from '@/router'
+import {routeNames, routes} from '@/router'
 
 
 const modelValue = defineModel<boolean>()
@@ -12,20 +12,6 @@ const {mobile} = useDisplay()
 const {currentRoute} = useRouter()
 const user = useUserStore()
 function getRouteTitle(route?: string | symbol): string {
-  const routeNames: Record<string | symbol, string> = {
-    'index': 'index',
-    'ss-styles': 'SSスタイル実装順',
-    'stories': 'ストーリー順',
-    'training-styles': 'スタイル育成',
-    'training-characters': 'キャラクター育成',
-    'training': '育成状況',
-    'limit-break': '凸別状況',
-    'orb': 'オーブ',
-    'generalize': 'ジェネライズ',
-    'ex-skill-evo': 'EXスキル進化',
-    'growth': '宝珠',
-    'passive-rank': 'アビリティ優先順位',
-  }
   return routeNames[route ?? '']
 }
 
@@ -148,7 +134,7 @@ function onLogout() {
       </v-list-item>
     </v-list>
     <v-divider />
-    <v-list>
+    <v-list color="primary">
       <div v-for="route in routes" :key="route.name">
         <v-list-group v-if="route.children">
           <template #activator="{props}">

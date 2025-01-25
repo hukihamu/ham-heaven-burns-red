@@ -21,7 +21,7 @@ threeMonthAgo.setHours(23, 59, 59, 0)
             <SeraphDBImage type="select" :bg="style.raw.bg" :height="80"/>
           </template>
           <template #append>
-            <span :class="{'text-primary': new Date(style.raw.in_date).getTime() > threeMonthAgo.getTime() }">
+            <span :class="{'text-secondary': new Date(style.raw.in_date).getTime() > threeMonthAgo.getTime() }">
             {{ new Date(style.raw.in_date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }) }}
           </span>
           </template>

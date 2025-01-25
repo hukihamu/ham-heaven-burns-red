@@ -1,36 +1,71 @@
 import {defineStore} from 'pinia'
 import {ref, watch} from 'vue'
 
+type UserStyle = {
+  [styleId: number]: {
+    lb?: number,
+    hoju?: boolean,
+    generalize?: boolean,
+    exSkillEvo?: boolean,
+    daphne?: boolean,
+  }
+}
+type UserCharacter = {
+  [charLabel: string]: {
+    orbs?: {
+      [orbLabel: string]: number | undefined,
+    }
+    masterySkill?: boolean,
+  }
+}
+
 export const useUserStore = defineStore('user', () => {
-  const lb = ref<{ [styleId: number]: number | undefined}>({})
+  const styles = ref<UserStyle>({})
+  const characters = ref<UserCharacter>({})
   const readStory = ref<string[]>([])
-  const orbs = ref<{[charLabel: string]: { [orbLabel: string]: number | undefined }}>({})
   const passiveRank = ref<{[key in 1|2|3]: number[]}>({
     1: [], 2: [], 3: [],
   })
   const id = ref<string>() // ユーザID
   const hash = ref<string>() //ユーザ認証情報
   const atLasted = ref<string>('')
+  const isFirstLoad = ref(true)
 
-  watch([lb, readStory, orbs], () => {
+
+  watch([readStory, passiveRank, styles, characters], () => {
+    if (isFirstLoad.value) {
+      isFirstLoad.value = false
+      return
+    }
     atLasted.value = new Date().toISOString()
   }, {deep: true})
 
+  function initStyle(styleId: number) {
+    if (!styles.value[styleId]) styles.value[styleId] = {}
+  }
+  function initCharacter(charLabel: string) {
+    if (!characters.value[charLabel]) characters.value[charLabel] = {}
+  }
+
   function getUserData() {
     return {
+      characters: characters.value,
+      styles: styles.value,
       atLasted: atLasted.value,
-      lb: lb.value,
-      orbs: orbs.value,
       readStory: readStory.value,
       passiveRank: passiveRank.value,
     }
   }
-  function setUserData(data: { atLasted: string,passiveRank: {[key in 1|2|3]: number[]}, lb: { [styleId: number]: number | undefined}, readStory: string[], orbs: { [charLabel: string]: { [orbLabel: string]: number | undefined }} }) {
-    lb.value = data.lb
+  function setUserData(data: { atLasted: string, passiveRank: {[key in 1|2|3]: number[]}, styles: UserStyle, readStory: string[], characters: UserCharacter}) {
     readStory.value = data.readStory
-    orbs.value = data.orbs
+    styles.value = data.styles
+    characters.value = data.characters
     passiveRank.value = data.passiveRank
     atLasted.value = data.atLasted
   }
-  return { lb, orbs, readStory, getUserData, setUserData, id, hash, atLasted, passiveRank }
+  return {
+    readStory, passiveRank, styles, characters,
+    getUserData, setUserData, initStyle, initCharacter,
+    id, hash, atLasted,
+  }
 }, {persist: true})

@@ -28,12 +28,17 @@ export const routes: RouteRecordRaw[] = [
       {
         path: '/training/limit-break',
         name: 'limit-break',
-        component: () => import('@/views/LimitBreakView.vue'),
+        component: () => import('@/views/training/LimitBreakView.vue'),
       },
       {
         path: '/training/orb',
         name: 'orb',
-        component: () => import('@/views/OrbView.vue'),
+        component: () => import('@/views/training/OrbView.vue'),
+      },
+      {
+        path: '/training/hoju',
+        name: 'hoju',
+        component: () => import('@/views/training/HojuView.vue'),
       },
     ],
   },
@@ -43,6 +48,23 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/PassiveRankView.vue'),
   }
 ]
+export const routeNames: Record<string | symbol, string> = {
+  'index': 'index',
+  'ss-styles': 'SSスタイル実装順',
+  'stories': 'ストーリー順',
+  'training-styles': 'スタイル育成',
+  'training-characters': 'キャラクター育成',
+
+  'training': '育成状況',
+  'limit-break': '凸別状況',
+  'orb': 'オーブ',
+  'generalize': 'ジェネライズ',
+  'ex-skill-evo': 'EXスキル進化',
+  'hoju': '宝珠',
+  'daphne': '悠久のダフネ',
+
+  'passive-rank': 'アビリティ優先順位',
+}
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
