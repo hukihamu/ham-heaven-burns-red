@@ -38,8 +38,8 @@ function countLB(id: number, isUp: boolean) {
     <v-card>
       <v-card-title />
       <v-card-subtitle>
-        フィルター
-        <!--TODO-->
+        <v-btn text="絞り込み" disabled class="me-2"/>
+        <v-btn text="並び替え" disabled/>
       </v-card-subtitle>
       <v-card-text>
         <v-card title="所持スタイル" :subtitle="`${styleLists.owner.length}/${allSSStyles.length} ${(styleLists.owner.length/allSSStyles.length*100).toFixed(2)}%`">

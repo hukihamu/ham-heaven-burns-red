@@ -2,10 +2,9 @@
 
 import {useMasterStore} from '@/stores/master.ts'
 import {computed, ref} from 'vue'
-import UiImg from '@/components/images/UiImg.vue'
-import CharacterImg from '@/components/images/CharacterImg.vue'
 import type {Card} from '@/types/character.ts'
 import {useUserStore} from '@/stores/user.ts'
+import SeraphDBImage from '@/components/SeraphDBImage.vue'
 
 const masterStore = useMasterStore()
 masterStore.init('events', 'accessories', 'characters', 'chapters')
@@ -39,18 +38,16 @@ const items = computed<{title: string, label: string, in_date: string, story?: s
 const isRead = ref(false)
 const filterItem = computed(() => items.value.filter(it => !isRead.value || !userStore.readStory.includes(it.label) ))
 function onClickItem(event: MouseEvent | KeyboardEvent, index: number) {
-  if (event.ctrlKey) {
-    const isChecked = userStore.readStory.includes(filterItem.value[index].label)
-    // 選択
-    for (let i = index + 1; i < filterItem.value.length; i++) {
-      const label = filterItem.value[i].label
-      if (isChecked) {
-        const storerIndex = userStore.readStory.indexOf(label)
-        userStore.readStory.splice(storerIndex, 1)
-      } else {
-        if (!label || userStore.readStory.includes(label)) continue
-        userStore.readStory.push(label)
-      }
+  const isChecked = userStore.readStory.includes(filterItem.value[index].label)
+  // 選択
+  for (let i = index + 1; i < filterItem.value.length; i++) {
+    const label = filterItem.value[i].label
+    if (isChecked) {
+      const storerIndex = userStore.readStory.indexOf(label)
+      userStore.readStory.splice(storerIndex, 1)
+    } else {
+      if (!label || userStore.readStory.includes(label)) continue
+      userStore.readStory.push(label)
     }
   }
 }
@@ -62,13 +59,13 @@ function onClickItem(event: MouseEvent | KeyboardEvent, index: number) {
       <v-card-text>
         <v-row>
           <v-col>
-            <v-switch v-model="isRead" label="既読を非表示" color="primary" />
+            <v-switch v-model="isRead" label="既読を非表示" color="info" />
             <v-card-subtitle>ctrl + clickで選択より古いストーリーを既読</v-card-subtitle>
           </v-col>
           <v-col>
-            <v-switch v-model="showStories" label="メインストーリー" color="primary" hide-details />
-            <v-switch v-model="showEvents" label="サイドストーリー" color="primary" hide-details />
-            <v-switch v-model="showSouls" label="メモリーストーリー" color="primary" hide-details />
+            <v-switch v-model="showStories" label="メインストーリー" color="info" hide-details />
+            <v-switch v-model="showEvents" label="サイドストーリー" color="info" hide-details />
+            <v-switch v-model="showSouls" label="メモリーストーリー" color="info" hide-details />
           </v-col>
         </v-row>
       </v-card-text>
@@ -79,18 +76,18 @@ function onClickItem(event: MouseEvent | KeyboardEvent, index: number) {
       <template #default="{items}">
         <v-list v-model:selected="userStore.readStory" selectable select-strategy="leaf" color="secondary">
           <v-list-item v-for="(item, index) in items" :key="item.raw.label" :title="item.raw.title" :value="item.raw.label"
-                       @click="onClickItem($event, index)">
+                       @click.ctrl="onClickItem($event, index)">
             <template #prepend="{select, isSelected}">
               <v-checkbox-btn :model-value="isSelected" @update:model-value="select(!!$event)"/>
               <div v-if="item.raw.logo" class="pre-image">
-                <UiImg :event-logo="item.raw.logo" :width="178"/>
+                <SeraphDBImage type="hbr" :hbr="item.raw.logo" :width="178"/>
               </div>
               <div v-else-if="item.raw.image" class="pre-image">
-                <CharacterImg type="select" :card="item.raw.card" :width="178" class="position-absolute left-0"/>
-                <UiImg :accessory="item.raw.image" :height="72" class="position-absolute left-0"/>
+                <SeraphDBImage type="select" :thumbnail="item.raw.card?.image" :width="178" class="position-absolute left-0"/>
+                <SeraphDBImage type="hbr" :hbr="item.raw.image" :height="72" class="position-absolute left-0"/>
               </div>
               <div v-else-if="item.raw.story" class="pre-image justify-item-center">
-                <UiImg :story="item.raw.story" :width="178" :height="72" cover class="object-position-top"/>
+                <SeraphDBImage type="hbr" :hbr="item.raw.story + '.webp'" :width="178" :height="72" cover class="object-position-top"/>
               </div>
             </template>
             <template #subtitle>

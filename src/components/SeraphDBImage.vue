@@ -11,6 +11,7 @@ const props = defineProps({
   height: Number,
 
   bg: String,
+  thumbnail: String,
   allow: String as () => 'Up' | 'Down',
   team: String as () => TeamType,
   characterLabel: String,
@@ -26,7 +27,7 @@ const imageAttr = computed<{src: string, width: number}>(() => {
   const attr = {src: '', width: 0}
   switch (props.type) {
     case 'select':
-      attr.src = `https://hbr.quest/hbr/${props.bg?.replace('.webp', '_Select.webp')}`
+      attr.src = `https://hbr.quest/hbr/${props.bg?.replace('.webp', '_Select.webp') ?? props.thumbnail?.replace('_Thumbnail.webp', '_Select.webp')}`
       attr.width = calcWidth(356, 144)
       break
     case 'allow':

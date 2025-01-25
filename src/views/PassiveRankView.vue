@@ -19,7 +19,7 @@ const allPassives = computed(() => master.mStyles
     cur.passives.forEach(p => {
       if (p.name !== '[Auto] 追撃' && p.name !== '[Overdrive]') {
         if (!acc[p.id]) {
-          acc[p.id] = {...p, styles: [cur.image], name: p.name.replace('[Auto] ', '[0凸] ')}
+          acc[p.id] = {...p, styles: [cur.image], name: p.name.replace('[Auto]', '[0凸]')}
         } else {
           acc[p.id].styles.push(cur.image)
         }
@@ -30,7 +30,8 @@ const allPassives = computed(() => master.mStyles
       l.bonus.forEach(p => {
         if (p.category === 'Passive') {
           if (!acc[p.id]) {
-            acc[p.id] = {...p, styles: [cur.image], name: p.name.replace('[Auto] ', '[3凸] ')}
+            acc[p.id] = {...p, styles: [cur.image], name: p.name
+                .replace('[Auto]', `[${l.step}凸]`)}
           } else {
             acc[p.id].styles.push(cur.image)
           }
@@ -91,7 +92,7 @@ const p3 = computed({
           </v-slide-group-item>
           <v-slide-group-item>
             <v-card border>
-              <v-card-title class="text-center">
+              <v-card-title class="text-center bg-green-darken-4">
                 低
               </v-card-title>
               <v-card-text class="card-text">
@@ -114,7 +115,7 @@ const p3 = computed({
           </v-slide-group-item>
           <v-slide-group-item>
             <v-card border>
-              <v-card-title class="text-center">
+              <v-card-title class="text-center bg-lime-darken-4">
                 中
               </v-card-title>
               <v-card-text class="card-text">
@@ -137,7 +138,7 @@ const p3 = computed({
           </v-slide-group-item>
           <v-slide-group-item>
             <v-card border>
-              <v-card-title class="text-center">
+              <v-card-title class="text-center bg-orange-darken-4">
                 高
               </v-card-title>
               <v-card-text class="card-text">

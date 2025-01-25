@@ -134,7 +134,7 @@ function onLogout() {
       </v-list-item>
     </v-list>
     <v-divider />
-    <v-list color="primary">
+    <v-list color="info">
       <div v-for="route in routes" :key="route.name">
         <v-list-group v-if="route.children">
           <template #activator="{props}">

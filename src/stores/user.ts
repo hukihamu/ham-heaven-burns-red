@@ -4,10 +4,10 @@ import {ref, watch} from 'vue'
 type UserStyle = {
   [styleId: number]: {
     lb?: number,
-    hoju?: boolean,
-    generalize?: boolean,
-    exSkillEvo?: boolean,
-    daphne?: boolean,
+    hoju?: number,
+    generalize?: number,
+    exSkillEvo?: number,
+    daphne?: number,
   }
 }
 type UserCharacter = {

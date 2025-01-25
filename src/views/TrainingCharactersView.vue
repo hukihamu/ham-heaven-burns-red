@@ -24,7 +24,7 @@ const orbs = computed<Orb[]>(() => master.mAccessories
   .filter(it => it.label.match('Acc.Orb'))
   .map(it => ({label: it.label, name: it.name, skillName: it.skill[0]?.name, skillDesc: it.skill[0]?.desc, image: it.image})))
 function getOrbTraining(orb: Orb, character: Character): string {
-  switch (user.characters[character.label].orbs?.[orb.label]) {
+  switch (user.characters[character.label]?.orbs?.[orb.label]) {
     case 1:
       return '育成済'
     case 0:
@@ -34,7 +34,7 @@ function getOrbTraining(orb: Orb, character: Character): string {
   }
 }
 function getOrbOpacity(orb: Orb, character: Character): {opacity: number} {
-  switch (user.characters[character.label].orbs?.[orb.label]) {
+  switch (user.characters[character.label]?.orbs?.[orb.label]) {
     case 1:
       return {opacity: 1}
     case 0:

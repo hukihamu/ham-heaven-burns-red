@@ -28,11 +28,11 @@ const passiveOrder = computed(() => allSSStyle.value.reduce<{[styleId: number]: 
     l.bonus.forEach(p => {
       if (p.category === 'Passive') {
         if (user.passiveRank['1'].includes(p.id)) {
-          order += 1
+          order += 1 * l.step
         } else if (user.passiveRank['2'].includes(p.id)) {
-          order += 2
+          order += 2 * l.step
         } else if (user.passiveRank['3'].includes(p.id)) {
-          order += 3
+          order += 3 * l.step
         }
       }
     })
@@ -49,41 +49,41 @@ const lb = computed(() => allSSStyle.value.reduce<{[id: number]: Style[]}>((pre,
 }, {}))
 const lbN = computed({
   get: () => isPassive.value ? [...(lb.value[10] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[10] ?? []),
-  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = undefined)}
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = undefined)},
 })
 const lb0 = computed({
   get: () => isPassive.value ? [...(lb.value[0] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[0] ?? []),
-  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 0)}
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 0)},
 })
 const lb1 = computed({
   get: () => isPassive.value ? [...(lb.value[1] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[1] ?? []),
-  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 1)}
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 1)},
 })
 const lb2 = computed({
   get: () => isPassive.value ? [...(lb.value[2] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[2] ?? []),
-  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 2)}
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 2)},
 })
 const lb3 = computed({
   get: () => isPassive.value ? [...(lb.value[3] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[3] ?? []),
-  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 3)}
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 3)},
 })
 const lb4 = computed({
-  get: () => isPassive.value ? [...(lb.value[4] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[4] ?? []),
-  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 4)}
+  get: () => lb.value[4] ?? [],
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 4)},
 })
 const lb5 = computed({
-  get: () => isPassive.value ? [...(lb.value[5] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[5] ?? []),
-  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 5)}
+  get: () => lb.value[5] ?? [],
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 5)},
 })
 const lb6 = computed({
-  get: () => isPassive.value ? [...(lb.value[6] ?? [])].sort((a, b) => passiveOrder.value[a.id] < passiveOrder.value[b.id] ? 1 : -1) : (lb.value[6] ?? []),
-  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 6)}
+  get: () => lb.value[6] ?? [],
+  set: newValue => {newValue.forEach(it => user.styles[it.id].lb = 6)},
 })
 </script>
 
 <template>
 <v-container fluid>
-  <v-switch v-model="isPassive" label="アビリティ優先順位" hide-details density="compact" color="primary"/>
+  <v-switch v-model="isPassive" label="3凸優先順位" hide-details density="compact" color="primary"/>
   <v-slide-group>
     <v-slide-group-item>
       <v-card border>
@@ -225,9 +225,6 @@ const lb6 = computed({
               <template #prepend>
                 <div class="position-relative">
                   <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-                  <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
-                    {{passiveOrder[style.id]}}
-                  </span>
                 </div>
               </template>
             </v-list-item>
@@ -250,9 +247,6 @@ const lb6 = computed({
               <template #prepend>
                 <div class="position-relative">
                   <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-                  <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
-                    {{passiveOrder[style.id]}}
-                  </span>
                 </div>
               </template>
             </v-list-item>
@@ -275,9 +269,6 @@ const lb6 = computed({
               <template #prepend>
                 <div class="position-relative">
                   <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-                  <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
-                    {{passiveOrder[style.id]}}
-                  </span>
                 </div>
               </template>
             </v-list-item>
