@@ -45,7 +45,11 @@ export const routes: RouteRecordRaw[] = [
         name: 'generalize',
         component: () => import('@/views/training/GeneralizeView.vue'),
       },
-
+      {
+        path: '/training/ex-skill-evo',
+        name: 'ex-skill-evo',
+        component: () => import('@/views/training/ExSkillEvoView.vue'),
+      },
     ],
   },
   {
