@@ -40,6 +40,12 @@ export const routes: RouteRecordRaw[] = [
         name: 'hoju',
         component: () => import('@/views/training/HojuView.vue'),
       },
+      {
+        path: '/training/generalize',
+        name: 'generalize',
+        component: () => import('@/views/training/GeneralizeView.vue'),
+      },
+
     ],
   },
   {
