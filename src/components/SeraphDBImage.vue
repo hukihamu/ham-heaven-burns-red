@@ -51,7 +51,6 @@ const imageAttr = computed<{src: string, width: number}>(() => {
       attr.width = calcWidth(184, 184) // Orb基準
       break
   }
-
   return attr
 })
 </script>

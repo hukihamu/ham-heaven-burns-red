@@ -31,11 +31,6 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/training/LimitBreakView.vue'),
       },
       {
-        path: '/training/orb',
-        name: 'orb',
-        component: () => import('@/views/training/OrbView.vue'),
-      },
-      {
         path: '/training/hoju',
         name: 'hoju',
         component: () => import('@/views/training/HojuView.vue'),
@@ -49,6 +44,17 @@ export const routes: RouteRecordRaw[] = [
         path: '/training/ex-skill-evo',
         name: 'ex-skill-evo',
         component: () => import('@/views/training/ExSkillEvoView.vue'),
+      },
+
+      {
+        path: '/training/orb',
+        name: 'orb',
+        component: () => import('@/views/training/OrbView.vue'),
+      },
+      {
+        path: '/training/master-skill',
+        name: 'master-skill',
+        component: () => import('@/views/training/MasterSkillView.vue'),
       },
     ],
   },
@@ -72,6 +78,8 @@ export const routeNames: Record<string | symbol, string> = {
   'ex-skill-evo': 'EXスキル進化',
   'hoju': '宝珠',
   'daphne': '悠久のダフネ',
+  'master-skill': 'マスタースキル',
+  'revert': '転生',
 
   'passive-rank': 'アビリティ優先順位',
 }
