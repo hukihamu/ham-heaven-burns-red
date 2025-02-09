@@ -36,53 +36,59 @@ function moveTo2(style: Style) {
 
 <template>
 <v-container fluid>
-  <v-slide-group>
-    <v-slide-group-item>
-      <v-card border>
-        <v-card-title class="text-center">
-          未育成
-        </v-card-title>
-        <v-card-subtitle class="text-center">
-          ctrl+click で育成済みへ移動
-        </v-card-subtitle>
-        <v-card-text class="card-size">
-          <VueDraggable v-model="hojuN" group="hoju" class="h-100 d-flex flex-wrap align-content-start">
-            <div v-for="style in hojuN" :key="style.id" @click.ctrl="moveTo2(style)">
-              <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-            </div>
-          </VueDraggable>
-        </v-card-text>
-      </v-card>
-    </v-slide-group-item>
-    <v-slide-group-item>
-      <v-card border>
-        <v-card-title class="text-center">
-          育成中
-        </v-card-title>
-        <v-card-text class="card-size">
-          <VueDraggable v-model="hoju1" group="hoju" class="h-100 d-flex flex-wrap align-content-start">
-            <div v-for="style in hoju1" :key="style.id">
-              <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-            </div>
-          </VueDraggable>
-        </v-card-text>
-      </v-card>
-    </v-slide-group-item>
-    <v-slide-group-item>
-      <v-card border>
-        <v-card-title class="text-center">
-          育成済
-        </v-card-title>
-        <v-card-text class="card-size">
-          <VueDraggable v-model="hoju2" group="hoju" class="h-100 d-flex flex-wrap align-content-start">
-            <div v-for="style in hoju2" :key="style.id">
-              <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-            </div>
-          </VueDraggable>
-        </v-card-text>
-      </v-card>
-    </v-slide-group-item>
-  </v-slide-group>
+  <v-card title="宝珠">
+    <v-card-text>
+      <v-slide-group>
+        <v-slide-group-item>
+          <v-card border>
+            <v-card-title class="text-center">
+              未育成
+            </v-card-title>
+            <v-card-subtitle class="text-center">
+              ctrl+click で育成済みへ移動
+            </v-card-subtitle>
+            <v-card-text class="card-size">
+              <VueDraggable v-model="hojuN" group="hoju" class="h-100 d-flex flex-wrap align-content-start">
+                <div v-for="style in hojuN" :key="style.id" @click.ctrl="moveTo2(style)">
+                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                </div>
+              </VueDraggable>
+            </v-card-text>
+          </v-card>
+        </v-slide-group-item>
+        <v-slide-group-item>
+          <v-card border>
+            <v-card-title class="text-center">
+              育成中
+            </v-card-title>
+            <v-card-subtitle></v-card-subtitle>
+            <v-card-text class="card-size">
+              <VueDraggable v-model="hoju1" group="hoju" class="h-100 d-flex flex-wrap align-content-start">
+                <div v-for="style in hoju1" :key="style.id">
+                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                </div>
+              </VueDraggable>
+            </v-card-text>
+          </v-card>
+        </v-slide-group-item>
+        <v-slide-group-item>
+          <v-card border>
+            <v-card-title class="text-center">
+              育成済
+            </v-card-title>
+            <v-card-subtitle></v-card-subtitle>
+            <v-card-text class="card-size">
+              <VueDraggable v-model="hoju2" group="hoju" class="h-100 d-flex flex-wrap align-content-start">
+                <div v-for="style in hoju2" :key="style.id">
+                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                </div>
+              </VueDraggable>
+            </v-card-text>
+          </v-card>
+        </v-slide-group-item>
+      </v-slide-group>
+    </v-card-text>
+  </v-card>
 </v-container>
 </template>
 

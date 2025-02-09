@@ -83,200 +83,206 @@ const lb6 = computed({
 
 <template>
 <v-container fluid>
-  <v-switch v-model="isPassive" label="3凸優先順位" hide-details density="compact" color="primary"/>
-  <v-slide-group>
-    <v-slide-group-item>
-      <v-card border>
-        <v-card-title class="text-center">
-          未所持
-        </v-card-title>
-        <v-card-subtitle class="text-center">
-          {{lbN.length}}/{{allSSStyle.length}}<br />
-          {{(lbN.length/allSSStyle.length*100).toFixed(2)}}%
-        </v-card-subtitle>
-        <v-card-text class="card-text">
-          <VueDraggable v-model="lbN" group="lb" class="h-100">
-            <v-list-item v-for="style in lbN" :key="style.id">
-              <template #prepend>
-                <div class="position-relative">
-                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-                  <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
+  <v-card title="凸別状況">
+    <v-card-subtitle>
+      <v-switch v-model="isPassive" label="3凸優先順位" hide-details density="compact" color="primary"/>
+    </v-card-subtitle>
+    <v-card-text>
+      <v-slide-group>
+        <v-slide-group-item>
+          <v-card border>
+            <v-card-title class="text-center">
+              未所持
+            </v-card-title>
+            <v-card-subtitle class="text-center">
+              {{lbN.length}}/{{allSSStyle.length}}<br />
+              {{(lbN.length/allSSStyle.length*100).toFixed(2)}}%
+            </v-card-subtitle>
+            <v-card-text class="card-text">
+              <VueDraggable v-model="lbN" group="lb" class="h-100">
+                <v-list-item v-for="style in lbN" :key="style.id">
+                  <template #prepend>
+                    <div class="position-relative">
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                      <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
                     {{passiveOrder[style.id]}}
                   </span>
-                </div>
-              </template>
-            </v-list-item>
-          </VueDraggable>
-        </v-card-text>
-      </v-card>
-    </v-slide-group-item>
-    <v-slide-group-item>
-      <v-card border>
-        <v-card-title class="text-center">
-          0凸
-        </v-card-title>
-        <v-card-subtitle class="text-center">
-          {{lb0.length}}/{{allSSStyle.length}}<br />
-          {{(lb0.length/allSSStyle.length*100).toFixed(2)}}%
-        </v-card-subtitle>
-        <v-card-text class="card-text">
-          <VueDraggable v-model="lb0" group="lb" class="h-100">
-            <v-list-item v-for="style in lb0" :key="style.id">
-              <template #prepend>
-                <div class="position-relative">
-                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-                  <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
+                    </div>
+                  </template>
+                </v-list-item>
+              </VueDraggable>
+            </v-card-text>
+          </v-card>
+        </v-slide-group-item>
+        <v-slide-group-item>
+          <v-card border>
+            <v-card-title class="text-center">
+              0凸
+            </v-card-title>
+            <v-card-subtitle class="text-center">
+              {{lb0.length}}/{{allSSStyle.length}}<br />
+              {{(lb0.length/allSSStyle.length*100).toFixed(2)}}%
+            </v-card-subtitle>
+            <v-card-text class="card-text">
+              <VueDraggable v-model="lb0" group="lb" class="h-100">
+                <v-list-item v-for="style in lb0" :key="style.id">
+                  <template #prepend>
+                    <div class="position-relative">
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                      <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
                     {{passiveOrder[style.id]}}
                   </span>
-                </div>
-              </template>
-            </v-list-item>
-          </VueDraggable>
-        </v-card-text>
-      </v-card>
-    </v-slide-group-item>
-    <v-slide-group-item>
-      <v-card border>
-        <v-card-title class="text-center">
-          1凸
-        </v-card-title>
-        <v-card-subtitle class="text-center">
-          {{lb1.length}}/{{allSSStyle.length}}<br />
-          {{(lb1.length/allSSStyle.length*100).toFixed(2)}}%
-        </v-card-subtitle>
-        <v-card-text class="card-text">
-          <VueDraggable v-model="lb1" group="lb" class="h-100">
-            <v-list-item v-for="style in lb1" :key="style.id">
-              <template #prepend>
-                <div class="position-relative">
-                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-                  <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
+                    </div>
+                  </template>
+                </v-list-item>
+              </VueDraggable>
+            </v-card-text>
+          </v-card>
+        </v-slide-group-item>
+        <v-slide-group-item>
+          <v-card border>
+            <v-card-title class="text-center">
+              1凸
+            </v-card-title>
+            <v-card-subtitle class="text-center">
+              {{lb1.length}}/{{allSSStyle.length}}<br />
+              {{(lb1.length/allSSStyle.length*100).toFixed(2)}}%
+            </v-card-subtitle>
+            <v-card-text class="card-text">
+              <VueDraggable v-model="lb1" group="lb" class="h-100">
+                <v-list-item v-for="style in lb1" :key="style.id">
+                  <template #prepend>
+                    <div class="position-relative">
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                      <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
                     {{passiveOrder[style.id]}}
                   </span>
-                </div>
-              </template>
-            </v-list-item>
-          </VueDraggable>
-        </v-card-text>
-      </v-card>
-    </v-slide-group-item>
-    <v-slide-group-item>
-      <v-card border>
-        <v-card-title class="text-center">
-          2凸
-        </v-card-title>
-        <v-card-subtitle class="text-center">
-          {{lb2.length}}/{{allSSStyle.length}}<br />
-          {{(lb2.length/allSSStyle.length*100).toFixed(2)}}%
-        </v-card-subtitle>
-        <v-card-text class="card-text">
-          <VueDraggable v-model="lb2" group="lb" class="h-100">
-            <v-list-item v-for="style in lb2" :key="style.id">
-              <template #prepend>
-                <div class="position-relative">
-                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-                  <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
+                    </div>
+                  </template>
+                </v-list-item>
+              </VueDraggable>
+            </v-card-text>
+          </v-card>
+        </v-slide-group-item>
+        <v-slide-group-item>
+          <v-card border>
+            <v-card-title class="text-center">
+              2凸
+            </v-card-title>
+            <v-card-subtitle class="text-center">
+              {{lb2.length}}/{{allSSStyle.length}}<br />
+              {{(lb2.length/allSSStyle.length*100).toFixed(2)}}%
+            </v-card-subtitle>
+            <v-card-text class="card-text">
+              <VueDraggable v-model="lb2" group="lb" class="h-100">
+                <v-list-item v-for="style in lb2" :key="style.id">
+                  <template #prepend>
+                    <div class="position-relative">
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                      <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
                     {{passiveOrder[style.id]}}
                   </span>
-                </div>
-              </template>
-            </v-list-item>
-          </VueDraggable>
-        </v-card-text>
-      </v-card>
-    </v-slide-group-item>
-    <v-slide-group-item>
-      <v-card border>
-        <v-card-title class="text-center">
-          2.5凸
-        </v-card-title>
-        <v-card-subtitle class="text-center">
-          {{lb3.length}}/{{allSSStyle.length}}<br />
-          {{(lb3.length/allSSStyle.length*100).toFixed(2)}}%
-        </v-card-subtitle>
-        <v-card-text class="card-text">
-          <VueDraggable v-model="lb3" group="lb" class="h-100">
-            <v-list-item v-for="style in lb3" :key="style.id">
-              <template #prepend>
-                <div class="position-relative">
-                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-                  <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
+                    </div>
+                  </template>
+                </v-list-item>
+              </VueDraggable>
+            </v-card-text>
+          </v-card>
+        </v-slide-group-item>
+        <v-slide-group-item>
+          <v-card border>
+            <v-card-title class="text-center">
+              2.5凸
+            </v-card-title>
+            <v-card-subtitle class="text-center">
+              {{lb3.length}}/{{allSSStyle.length}}<br />
+              {{(lb3.length/allSSStyle.length*100).toFixed(2)}}%
+            </v-card-subtitle>
+            <v-card-text class="card-text">
+              <VueDraggable v-model="lb3" group="lb" class="h-100">
+                <v-list-item v-for="style in lb3" :key="style.id">
+                  <template #prepend>
+                    <div class="position-relative">
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                      <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
                     {{passiveOrder[style.id]}}
                   </span>
-                </div>
-              </template>
-            </v-list-item>
-          </VueDraggable>
-        </v-card-text>
-      </v-card>
-    </v-slide-group-item>
-    <v-slide-group-item>
-      <v-card border>
-        <v-card-title class="text-center">
-          3凸
-        </v-card-title>
-        <v-card-subtitle class="text-center">
-          {{lb4.length}}/{{allSSStyle.length}}<br />
-          {{(lb4.length/allSSStyle.length*100).toFixed(2)}}%
-        </v-card-subtitle>
-        <v-card-text class="card-text">
-          <VueDraggable v-model="lb4" group="lb" class="h-100">
-            <v-list-item v-for="style in lb4" :key="style.id">
-              <template #prepend>
-                <div class="position-relative">
-                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-                </div>
-              </template>
-            </v-list-item>
-          </VueDraggable>
-        </v-card-text>
-      </v-card>
-    </v-slide-group-item>
-    <v-slide-group-item>
-      <v-card border>
-        <v-card-title class="text-center">
-          3.5凸
-        </v-card-title>
-        <v-card-subtitle class="text-center">
-          {{lb5.length}}/{{allSSStyle.length}}<br />
-          {{(lb5.length/allSSStyle.length*100).toFixed(2)}}%
-        </v-card-subtitle>
-        <v-card-text class="card-text">
-          <VueDraggable v-model="lb5" group="lb" class="h-100">
-            <v-list-item v-for="style in lb5" :key="style.id">
-              <template #prepend>
-                <div class="position-relative">
-                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-                </div>
-              </template>
-            </v-list-item>
-          </VueDraggable>
-        </v-card-text>
-      </v-card>
-    </v-slide-group-item>
-    <v-slide-group-item>
-      <v-card border>
-        <v-card-title class="text-center">
-          4凸
-        </v-card-title>
-        <v-card-subtitle class="text-center">
-          {{lb6.length}}/{{allSSStyle.length}}<br />
-          {{(lb6.length/allSSStyle.length*100).toFixed(2)}}%
-        </v-card-subtitle>
-        <v-card-text class="card-text">
-          <VueDraggable v-model="lb6" group="lb" class="h-100">
-            <v-list-item v-for="style in lb6" :key="style.id">
-              <template #prepend>
-                <div class="position-relative">
-                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
-                </div>
-              </template>
-            </v-list-item>
-          </VueDraggable>
-        </v-card-text>
-      </v-card>
-    </v-slide-group-item>
-  </v-slide-group>
+                    </div>
+                  </template>
+                </v-list-item>
+              </VueDraggable>
+            </v-card-text>
+          </v-card>
+        </v-slide-group-item>
+        <v-slide-group-item>
+          <v-card border>
+            <v-card-title class="text-center">
+              3凸
+            </v-card-title>
+            <v-card-subtitle class="text-center">
+              {{lb4.length}}/{{allSSStyle.length}}<br />
+              {{(lb4.length/allSSStyle.length*100).toFixed(2)}}%
+            </v-card-subtitle>
+            <v-card-text class="card-text">
+              <VueDraggable v-model="lb4" group="lb" class="h-100">
+                <v-list-item v-for="style in lb4" :key="style.id">
+                  <template #prepend>
+                    <div class="position-relative">
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                    </div>
+                  </template>
+                </v-list-item>
+              </VueDraggable>
+            </v-card-text>
+          </v-card>
+        </v-slide-group-item>
+        <v-slide-group-item>
+          <v-card border>
+            <v-card-title class="text-center">
+              3.5凸
+            </v-card-title>
+            <v-card-subtitle class="text-center">
+              {{lb5.length}}/{{allSSStyle.length}}<br />
+              {{(lb5.length/allSSStyle.length*100).toFixed(2)}}%
+            </v-card-subtitle>
+            <v-card-text class="card-text">
+              <VueDraggable v-model="lb5" group="lb" class="h-100">
+                <v-list-item v-for="style in lb5" :key="style.id">
+                  <template #prepend>
+                    <div class="position-relative">
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                    </div>
+                  </template>
+                </v-list-item>
+              </VueDraggable>
+            </v-card-text>
+          </v-card>
+        </v-slide-group-item>
+        <v-slide-group-item>
+          <v-card border>
+            <v-card-title class="text-center">
+              4凸
+            </v-card-title>
+            <v-card-subtitle class="text-center">
+              {{lb6.length}}/{{allSSStyle.length}}<br />
+              {{(lb6.length/allSSStyle.length*100).toFixed(2)}}%
+            </v-card-subtitle>
+            <v-card-text class="card-text">
+              <VueDraggable v-model="lb6" group="lb" class="h-100">
+                <v-list-item v-for="style in lb6" :key="style.id">
+                  <template #prepend>
+                    <div class="position-relative">
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                    </div>
+                  </template>
+                </v-list-item>
+              </VueDraggable>
+            </v-card-text>
+          </v-card>
+        </v-slide-group-item>
+      </v-slide-group>
+    </v-card-text>
+  </v-card>
 </v-container>
 </template>
 

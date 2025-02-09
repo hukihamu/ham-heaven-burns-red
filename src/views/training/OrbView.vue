@@ -20,7 +20,7 @@ const orbs = computed(() => master.mAccessories
   }, {}))
 const userOrbs = computed(() =>
   master.mCharacters.reduce<{ [orbLabel: string]: string[][]}>((acc, cur) => {
-    if (cur.team === '司令部') return acc
+    if (cur.team === '司令部' && cur.label !== 'NNanase') return acc
     if (cur.label === 'Karen') return acc
     user.initCharacter(cur.label)
     if (!user.characters[cur.label].orbs) user.characters[cur.label].orbs = {}

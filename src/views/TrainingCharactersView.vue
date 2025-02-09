@@ -12,7 +12,7 @@ const user = useUserStore()
 
 const tab = ref('31A')
 const teams = computed(() => master.mCharacters.reduce<{[key in TeamType]: Character[]}>((pre, cur) => {
-  if (cur.team === '司令部') return pre
+  if (cur.team === '司令部' && cur.label !== 'NNanase') return pre
   if (cur.label === 'Karen') return pre
   if (!pre[cur.team]) pre[cur.team] = []
   pre[cur.team].push(cur)

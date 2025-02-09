@@ -56,6 +56,11 @@ export const routes: RouteRecordRaw[] = [
         name: 'master-skill',
         component: () => import('@/views/training/MasterSkillView.vue'),
       },
+      {
+        path: '/training/revert',
+        name: 'revert',
+        component: () => import('@/views/training/RevertView.vue'),
+      },
     ],
   },
   {
