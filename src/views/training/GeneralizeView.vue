@@ -53,7 +53,7 @@ function moveTo2(style: Style) {
               <v-card-text class="card-size">
                 <VueDraggable v-model="generalizeN" group="generalize" class="h-100 d-flex flex-wrap align-content-start">
                   <div v-for="style in generalizeN" :key="style.id" @click.ctrl="moveTo2(style)">
-                    <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                    <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name"/>
                   </div>
                 </VueDraggable>
               </v-card-text>
@@ -68,7 +68,7 @@ function moveTo2(style: Style) {
               <v-card-text class="card-size">
                 <VueDraggable v-model="generalize1" group="generalize" class="h-100 d-flex flex-wrap align-content-start">
                   <div v-for="style in generalize1" :key="style.id">
-                    <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                    <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name"/>
                   </div>
                 </VueDraggable>
               </v-card-text>
@@ -83,7 +83,7 @@ function moveTo2(style: Style) {
               <v-card-text class="card-size">
                 <VueDraggable v-model="generalize2" group="generalize" class="h-100 d-flex flex-wrap align-content-start">
                   <div v-for="style in generalize2" :key="style.id">
-                    <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                    <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name"/>
                   </div>
                 </VueDraggable>
               </v-card-text>

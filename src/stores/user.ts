@@ -15,7 +15,7 @@ type UserCharacter = {
     orbs?: {
       [orbLabel: string]: number | undefined,
     },
-    revert?: number,
+    revert?: number, // 1~20
     masterSkill?: number,
   }
 }

@@ -5,6 +5,7 @@ import {computed} from 'vue'
 import {useUserStore} from '@/stores/user.ts'
 import SeraphDBImage from '@/components/SeraphDBImage.vue'
 import {VueDraggable} from 'vue-draggable-plus'
+import {getCharacterName} from '@/utils.ts'
 const master = useMasterStore()
 master.init('latest', 'characters')
 const user = useUserStore()
@@ -53,7 +54,7 @@ function moveTo2(label: string) {
               <v-card-text class="card-size">
                 <VueDraggable v-model="masterSkillsN" group="skillEvolutions" class="h-100 d-flex flex-wrap align-content-start">
                   <div v-for="c in masterSkillsN" :key="c" @click.ctrl="moveTo2(c)">
-                    <SeraphDBImage type="character-badges" :character-label="c" :width="64"/>
+                    <SeraphDBImage type="character-badges" :character-label="c" :width="64" :tooltip="getCharacterName(c, master.mCharacters)"/>
                   </div>
                 </VueDraggable>
               </v-card-text>
@@ -67,7 +68,7 @@ function moveTo2(label: string) {
               <v-card-text class="card-size">
                 <VueDraggable v-model="masterSkills1" group="skillEvolutions" class="h-100 d-flex flex-wrap align-content-start">
                   <div v-for="c in masterSkills1" :key="c">
-                    <SeraphDBImage type="character-badges" :character-label="c" :width="64"/>
+                    <SeraphDBImage type="character-badges" :character-label="c" :width="64" :tooltip="getCharacterName(c, master.mCharacters)"/>
                   </div>
                 </VueDraggable>
               </v-card-text>
@@ -81,7 +82,7 @@ function moveTo2(label: string) {
               <v-card-text class="card-size">
                 <VueDraggable v-model="masterSkills2" group="skillEvolutions" class="h-100 d-flex flex-wrap align-content-start">
                   <div v-for="c in masterSkills2" :key="c">
-                    <SeraphDBImage type="character-badges" :character-label="c" :width="64"/>
+                    <SeraphDBImage type="character-badges" :character-label="c" :width="64" :tooltip="getCharacterName(c, master.mCharacters)"/>
                   </div>
                 </VueDraggable>
               </v-card-text>

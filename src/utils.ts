@@ -1,4 +1,5 @@
 import type {RoleType} from '@/types/general.ts'
+import type {Character} from '@/types/character.ts'
 
 export async function api(url: string, init?: RequestInit) {
   return fetch(`https://ham-proxy.vercel.app/api/proxy/${url.replace('https://', '')}`, init)
@@ -21,6 +22,10 @@ export const roleColor: {[key in RoleType]: string} = {
   Healer: '#209281',
   Defender: '#205292',
   Admiral: '#1c1bd2',
+}
+export function getCharacterName(label: string, list: Character[]): string {
+  const temp = list.find(it => it.label === label)?.name ?? ''
+  return temp.split(' —')[0]
 }
 /*
 export const images = {

@@ -5,6 +5,7 @@ import {computed, ref} from 'vue'
 import type {Accessory} from '@/types/accessory.ts'
 import SeraphDBImage from '@/components/SeraphDBImage.vue'
 import {VueDraggable} from 'vue-draggable-plus'
+import {getCharacterName} from '@/utils.ts'
 
 const master = useMasterStore()
 master.init('characters', 'accessories')
@@ -74,7 +75,7 @@ function onChangeUserOrb(charaLabels: string[], orbLabel: string, orbLevel: numb
                                       class="h-100 d-flex flex-wrap align-content-start"
                                       @update:model-value="onChangeUserOrb($event, orb.label, 10)">
                           <div v-for="(charaLabel) in userOrbs[orb.label][10]" :key="charaLabel">
-                            <SeraphDBImage type="character-badges" :character-label="charaLabel" :width="64" />
+                            <SeraphDBImage type="character-badges" :character-label="charaLabel" :width="64" :tooltip="getCharacterName(charaLabel, master.mCharacters)" />
                           </div>
                         </VueDraggable>
                       </v-card-text>
@@ -86,7 +87,7 @@ function onChangeUserOrb(charaLabels: string[], orbLabel: string, orbLevel: numb
                       <v-card-text class="card-size">
                         <VueDraggable :model-value="userOrbs[orb.label][0]" :group="orb.label" class="h-100 d-flex flex-wrap align-content-start" @update:model-value="onChangeUserOrb($event, orb.label, 0)">
                           <div v-for="(charaLabel) in userOrbs[orb.label][0]" :key="charaLabel">
-                            <SeraphDBImage type="character-badges" :character-label="charaLabel" :width="64" />
+                            <SeraphDBImage type="character-badges" :character-label="charaLabel" :width="64" :tooltip="getCharacterName(charaLabel, master.mCharacters)" />
                           </div>
                         </VueDraggable>
                       </v-card-text>
@@ -98,7 +99,7 @@ function onChangeUserOrb(charaLabels: string[], orbLabel: string, orbLevel: numb
                       <v-card-text class="card-size">
                         <VueDraggable :model-value="userOrbs[orb.label][1]" :group="orb.label" class="h-100 d-flex flex-wrap align-content-start" @update:model-value="onChangeUserOrb($event, orb.label, 1)">
                           <div v-for="(charaLabel) in userOrbs[orb.label][1]" :key="charaLabel">
-                            <SeraphDBImage type="character-badges" :character-label="charaLabel" :width="64" />
+                            <SeraphDBImage type="character-badges" :character-label="charaLabel" :width="64" :tooltip="getCharacterName(charaLabel, master.mCharacters)" />
                           </div>
                         </VueDraggable>
                       </v-card-text>

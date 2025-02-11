@@ -50,7 +50,7 @@ function moveTo2(style: Style) {
             <v-card-text class="card-size">
               <VueDraggable v-model="hojuN" group="hoju" class="h-100 d-flex flex-wrap align-content-start">
                 <div v-for="style in hojuN" :key="style.id" @click.ctrl="moveTo2(style)">
-                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name"/>
                 </div>
               </VueDraggable>
             </v-card-text>
@@ -65,7 +65,7 @@ function moveTo2(style: Style) {
             <v-card-text class="card-size">
               <VueDraggable v-model="hoju1" group="hoju" class="h-100 d-flex flex-wrap align-content-start">
                 <div v-for="style in hoju1" :key="style.id">
-                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name"/>
                 </div>
               </VueDraggable>
             </v-card-text>
@@ -80,7 +80,7 @@ function moveTo2(style: Style) {
             <v-card-text class="card-size">
               <VueDraggable v-model="hoju2" group="hoju" class="h-100 d-flex flex-wrap align-content-start">
                 <div v-for="style in hoju2" :key="style.id">
-                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                  <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name"/>
                 </div>
               </VueDraggable>
             </v-card-text>

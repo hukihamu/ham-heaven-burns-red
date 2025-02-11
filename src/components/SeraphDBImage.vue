@@ -7,6 +7,7 @@ const props = defineProps({
     type: String as () => ImageType,
     required: true,
   },
+  tooltip: String,
   width: Number,
   height: Number,
 
@@ -22,41 +23,48 @@ function calcWidth(defaultWidth: number, defaultHeight: number) {
   if (props.height) return props.height * defaultWidth / defaultHeight
   return defaultWidth
 }
-
+const HAM_DOMAIN = '/ham-heaven-burns-red/img'
+const HBR_DOMAIN = 'https://hbr.quest'
 const imageAttr = computed<{src: string, width: number}>(() => {
-  const attr = {src: '', width: 0}
+  const attr = {src: HAM_DOMAIN, width: 0}
   switch (props.type) {
     case 'select':
-      attr.src = `https://hbr.quest/hbr/${props.bg?.replace('.webp', '_Select.webp') ?? props.thumbnail?.replace('_Thumbnail.webp', '_Select.webp')}`
+      attr.src += `/hbr/${props.bg?.replace('.webp', '_Select.webp') ?? props.thumbnail?.replace('_Thumbnail.webp', '_Select.webp')}`
       attr.width = calcWidth(356, 144)
       break
     case 'allow':
-      attr.src = `https://hbr.quest/al/Icon${props.allow}.webp`
+      attr.src += `/al/Icon${props.allow}.webp`
       attr.width = calcWidth(32, 32)
       break
     case 'new':
-      attr.src = `https://hbr.quest/ui/LabelNew.webp`
+      attr.src += `/ui/LabelNew.webp`
       attr.width = calcWidth(108, 57)
       break
     case 'team':
-      attr.src = `https://hbr.quest/ui/${props.team?.toLowerCase().replace(' ', '')}.webp`
+      attr.src += `/ui/${props.team?.toLowerCase().replace(' ', '')}.webp`
       attr.width = calcWidth(160, 132)
       break
     case 'character-badges':
-      attr.src = `https://hbr.quest/b/${props.characterLabel}.webp`
+      attr.src += `/b/${props.characterLabel}.webp`
       attr.width = calcWidth(174, 172)
       break
     case 'hbr':
-      attr.src = `https://hbr.quest/hbr/${props.hbr}`
+      attr.src += `/hbr/${props.hbr}`
       attr.width = calcWidth(184, 184) // Orb基準
       break
   }
   return attr
 })
+function onError(el: HTMLDivElement, src: string) {
+  const img = el.querySelector('img')
+  if (!img) return
+  img.src = src.replace(HAM_DOMAIN, HBR_DOMAIN)
+}
 </script>
 
 <template>
-<v-img v-bind="imageAttr">
+<v-img v-bind="imageAttr" @error="onError($el, imageAttr.src)">
+  <v-tooltip activator="parent" location="top" :disabled="!tooltip" :text="tooltip" content-class="bg-info"/>
   <slot />
 </v-img>
 </template>

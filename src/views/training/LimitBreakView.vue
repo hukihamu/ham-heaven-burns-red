@@ -103,7 +103,7 @@ const lb6 = computed({
                 <v-list-item v-for="style in lbN" :key="style.id">
                   <template #prepend>
                     <div class="position-relative">
-                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name" />
                       <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
                     {{passiveOrder[style.id]}}
                   </span>
@@ -128,7 +128,7 @@ const lb6 = computed({
                 <v-list-item v-for="style in lb0" :key="style.id">
                   <template #prepend>
                     <div class="position-relative">
-                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name"/>
                       <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
                     {{passiveOrder[style.id]}}
                   </span>
@@ -153,7 +153,7 @@ const lb6 = computed({
                 <v-list-item v-for="style in lb1" :key="style.id">
                   <template #prepend>
                     <div class="position-relative">
-                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name"/>
                       <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
                     {{passiveOrder[style.id]}}
                   </span>
@@ -178,7 +178,7 @@ const lb6 = computed({
                 <v-list-item v-for="style in lb2" :key="style.id">
                   <template #prepend>
                     <div class="position-relative">
-                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name"/>
                       <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
                     {{passiveOrder[style.id]}}
                   </span>
@@ -203,7 +203,7 @@ const lb6 = computed({
                 <v-list-item v-for="style in lb3" :key="style.id">
                   <template #prepend>
                     <div class="position-relative">
-                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name"/>
                       <span v-if="isPassive" class="position-absolute bottom-0 right-0 bg-black font-weight-bold">
                     {{passiveOrder[style.id]}}
                   </span>
@@ -228,7 +228,7 @@ const lb6 = computed({
                 <v-list-item v-for="style in lb4" :key="style.id">
                   <template #prepend>
                     <div class="position-relative">
-                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name"/>
                     </div>
                   </template>
                 </v-list-item>
@@ -250,7 +250,7 @@ const lb6 = computed({
                 <v-list-item v-for="style in lb5" :key="style.id">
                   <template #prepend>
                     <div class="position-relative">
-                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name"/>
                     </div>
                   </template>
                 </v-list-item>
@@ -272,7 +272,7 @@ const lb6 = computed({
                 <v-list-item v-for="style in lb6" :key="style.id">
                   <template #prepend>
                     <div class="position-relative">
-                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64"/>
+                      <SeraphDBImage type="hbr" :hbr="style.image" :width="64" :tooltip="style.name"/>
                     </div>
                   </template>
                 </v-list-item>

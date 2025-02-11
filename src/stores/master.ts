@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import chapters from '@/assets/chapters.json'
 import type {Style} from '@/types/style.ts'
 import type {Event} from '@/types/event.ts'
@@ -34,13 +34,28 @@ export const useMasterStore =  defineStore('master', () => {
       isInit.value[t] = true
     }
   }
+  const sortTeam = {
+    '31A': 0,
+    '31B': 10,
+    '31C': 20,
+    '31D': 30,
+    '31E': 40,
+    '31F': 50,
+    '31X': 60,
+    '30G': 70,
+    '司令部': 80,
+    'Angel Beats': 90,
+  }
+  const useCharacters = computed(() => m.characters.value
+    .filter(c => (c.team !== '司令部' || c.label === 'NNanase') && c.label !== 'Karen')
+    .sort((a, b) => (sortTeam[a.team] ?? 0) >= (sortTeam[b.team] ?? 0) ? 1 : -1))
 
   return {
     mStyles: m.styles,
     mEvents: m.events,
     mChapters: m.chapters,
     mAccessories: m.accessories,
-    mCharacters: m.characters,
+    mCharacters: useCharacters,
     mLatest: m.latest,
     init
   }
