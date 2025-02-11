@@ -4,9 +4,11 @@ import {useMasterStore} from '@/stores/master.ts'
 import {computed} from 'vue'
 import type {Style} from '@/types/style.ts'
 import SeraphDBImage from '@/components/SeraphDBImage.vue'
+import {useViewStore} from '@/stores/view.ts'
 
 const user = useUserStore()
 const master = useMasterStore()
+const view = useViewStore()
 
 master.init('styles')
 const allSSStyles = computed<Style[]>(() => master.mStyles.filter(s => s.tier === 'SS'))
@@ -49,7 +51,7 @@ function countLB(id: number, isUp: boolean) {
                 <v-row no-gutters>
                   <v-col cols="6" md="3" v-for="style in items" :key="style.raw.id">
                     <v-sheet class="pa-1 select-none" position="relative">
-                      <SeraphDBImage type="select" :bg="style.raw.bg" :tooltip="style.raw.name"/>
+                      <SeraphDBImage type="select" :bg="style.raw.bg" :tooltip="style.raw.name" @click="() => view.detailStyle = style.raw"/>
                       <v-sheet position="absolute" location="left center" color="transparent" class="ms-3 d-flex flex-column justify-space-around h-100">
                         <v-hover>
                           <template #default="{ props, isHovering }">

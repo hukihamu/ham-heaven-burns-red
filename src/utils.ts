@@ -27,6 +27,8 @@ export function getCharacterName(label: string, list: Character[]): string {
   const temp = list.find(it => it.label === label)?.name ?? ''
   return temp.split(' —')[0]
 }
+export const HAM_DOMAIN = '/ham-heaven-burns-red/img'
+export const HBR_DOMAIN = 'https://hbr.quest'
 /*
 export const images = {
     charSmallIcon(label: string) {

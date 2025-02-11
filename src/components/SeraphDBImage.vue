@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {computed} from 'vue'
 import type {TeamType} from '@/types/general.ts'
+import {HAM_DOMAIN, HBR_DOMAIN} from '@/utils.ts'
 type ImageType = 'select' | 'allow' | 'new' | 'team' | 'character-badges' | 'hbr'
 const props = defineProps({
   type: {
@@ -10,6 +11,8 @@ const props = defineProps({
   tooltip: String,
   width: Number,
   height: Number,
+  cover: Boolean,
+  position: String,
 
   bg: String,
   thumbnail: String,
@@ -23,10 +26,9 @@ function calcWidth(defaultWidth: number, defaultHeight: number) {
   if (props.height) return props.height * defaultWidth / defaultHeight
   return defaultWidth
 }
-const HAM_DOMAIN = '/ham-heaven-burns-red/img'
-const HBR_DOMAIN = 'https://hbr.quest'
-const imageAttr = computed<{src: string, width: number}>(() => {
-  const attr = {src: HAM_DOMAIN, width: 0}
+type ImageAttr = {src: string, width?: number, cover: boolean, position: string}
+const imageAttr = computed<ImageAttr>(() => {
+  const attr: ImageAttr = {src: HAM_DOMAIN, width: undefined, cover: props.cover ?? false, position: props.position ?? 'center center'}
   switch (props.type) {
     case 'select':
       attr.src += `/hbr/${props.bg?.replace('.webp', '_Select.webp') ?? props.thumbnail?.replace('_Thumbnail.webp', '_Select.webp')}`
@@ -55,15 +57,15 @@ const imageAttr = computed<{src: string, width: number}>(() => {
   }
   return attr
 })
-function onError(el: HTMLDivElement, src: string) {
+function onErrorImage(el: Element, src: string) {
   const img = el.querySelector('img')
-  if (!img) return
+  if (!img || img.src === src.replace(HAM_DOMAIN, HBR_DOMAIN)) return
   img.src = src.replace(HAM_DOMAIN, HBR_DOMAIN)
 }
 </script>
 
 <template>
-<v-img v-bind="imageAttr" @error="onError($el, imageAttr.src)">
+<v-img v-bind="imageAttr" @error="onErrorImage($el, imageAttr.src)">
   <v-tooltip activator="parent" location="top" :disabled="!tooltip" :text="tooltip" content-class="bg-info"/>
   <slot />
 </v-img>
