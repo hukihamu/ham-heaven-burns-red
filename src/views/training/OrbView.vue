@@ -21,8 +21,6 @@ const orbs = computed(() => master.mAccessories
   }, {}))
 const userOrbs = computed(() =>
   master.mCharacters.reduce<{ [orbLabel: string]: string[][]}>((acc, cur) => {
-    if (cur.team === '司令部' && cur.label !== 'NNanase') return acc
-    if (cur.label === 'Karen') return acc
     user.initCharacter(cur.label)
     if (!user.characters[cur.label].orbs) user.characters[cur.label].orbs = {}
     const character = user.characters[cur.label]
@@ -117,8 +115,9 @@ function onChangeUserOrb(charaLabels: string[], orbLabel: string, orbLevel: numb
 
 <style scoped>
 .card-size {
-  max-width: calc(64px * 10);
-  height: calc(100vh - 350px);
+  min-width: 120px;
+  width: calc((100vw - 500px) / 3);
+  height: calc(100vh - 200px);
   overflow-y: auto;
 }
 </style>

@@ -96,9 +96,9 @@ function moveTo2(style: Style) {
 </template>
 
 <style scoped>
-
 .card-size {
-  max-width: calc(64px * 10);
+  min-width: 120px;
+  width: calc((100vw - 500px) / 3);
   height: calc(100vh - 200px);
   overflow-y: auto;
 }

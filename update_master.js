@@ -43,8 +43,11 @@ const getData = async () => {
   })
   // TODO 画像取得
   if (!fs.existsSync(`${imgDir}/b`)) fs.mkdirSync(`${imgDir}/b`)
+  if (!fs.existsSync(`${imgDir}/g`)) fs.mkdirSync(`${imgDir}/g`)
   if (!fs.existsSync(`${imgDir}/ui`)) fs.mkdirSync(`${imgDir}/ui`)
   if (!fs.existsSync(`${imgDir}/hbr`)) fs.mkdirSync(`${imgDir}/hbr`)
+  if (!fs.existsSync(`${imgDir}/al`)) fs.mkdirSync(`${imgDir}/al`)
+  if (!fs.existsSync(`${imgDir}/pf`)) fs.mkdirSync(`${imgDir}/pf`)
   function imageFetch(path) {
     if (fs.existsSync(`${imgDir}${path}`)) return
     fetch(`https://hbr.quest${path}`)
@@ -61,6 +64,13 @@ const getData = async () => {
     // team icon
     const team = c.team.toLowerCase().replace(' ', '')
     imageFetch(`/ui/${team}.webp`)
+
+    // profile image
+    imageFetch(`/g/${c.w_image}`)
+
+    // full image
+    if (!fs.existsSync(`${imgDir}/pf/${team}`)) fs.mkdirSync(`${imgDir}/pf/${team}`)
+    imageFetch(`/pf/${team}/${c.label}.webp`)
   })
   styles?.forEach(s => {
     // select
@@ -70,6 +80,10 @@ const getData = async () => {
     // thumbnail
     imageFetch(`/hbr/${s.image}`)
   })
+
+  // ui icon
+  imageFetch(`/al/IconUp.webp`)
+  imageFetch(`/al/IconDown.webp`)
 }
 
 getData().then()

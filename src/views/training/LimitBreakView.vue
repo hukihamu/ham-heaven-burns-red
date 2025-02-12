@@ -98,7 +98,7 @@ const lb6 = computed({
               {{lbN.length}}/{{allSSStyle.length}}<br />
               {{(lbN.length/allSSStyle.length*100).toFixed(2)}}%
             </v-card-subtitle>
-            <v-card-text class="card-text">
+            <v-card-text class="card-size">
               <VueDraggable v-model="lbN" group="lb" class="h-100">
                 <v-list-item v-for="style in lbN" :key="style.id">
                   <template #prepend>
@@ -123,7 +123,7 @@ const lb6 = computed({
               {{lb0.length}}/{{allSSStyle.length}}<br />
               {{(lb0.length/allSSStyle.length*100).toFixed(2)}}%
             </v-card-subtitle>
-            <v-card-text class="card-text">
+            <v-card-text class="card-size">
               <VueDraggable v-model="lb0" group="lb" class="h-100">
                 <v-list-item v-for="style in lb0" :key="style.id">
                   <template #prepend>
@@ -148,7 +148,7 @@ const lb6 = computed({
               {{lb1.length}}/{{allSSStyle.length}}<br />
               {{(lb1.length/allSSStyle.length*100).toFixed(2)}}%
             </v-card-subtitle>
-            <v-card-text class="card-text">
+            <v-card-text class="card-size">
               <VueDraggable v-model="lb1" group="lb" class="h-100">
                 <v-list-item v-for="style in lb1" :key="style.id">
                   <template #prepend>
@@ -173,7 +173,7 @@ const lb6 = computed({
               {{lb2.length}}/{{allSSStyle.length}}<br />
               {{(lb2.length/allSSStyle.length*100).toFixed(2)}}%
             </v-card-subtitle>
-            <v-card-text class="card-text">
+            <v-card-text class="card-size">
               <VueDraggable v-model="lb2" group="lb" class="h-100">
                 <v-list-item v-for="style in lb2" :key="style.id">
                   <template #prepend>
@@ -198,7 +198,7 @@ const lb6 = computed({
               {{lb3.length}}/{{allSSStyle.length}}<br />
               {{(lb3.length/allSSStyle.length*100).toFixed(2)}}%
             </v-card-subtitle>
-            <v-card-text class="card-text">
+            <v-card-text class="card-size">
               <VueDraggable v-model="lb3" group="lb" class="h-100">
                 <v-list-item v-for="style in lb3" :key="style.id">
                   <template #prepend>
@@ -223,7 +223,7 @@ const lb6 = computed({
               {{lb4.length}}/{{allSSStyle.length}}<br />
               {{(lb4.length/allSSStyle.length*100).toFixed(2)}}%
             </v-card-subtitle>
-            <v-card-text class="card-text">
+            <v-card-text class="card-size">
               <VueDraggable v-model="lb4" group="lb" class="h-100">
                 <v-list-item v-for="style in lb4" :key="style.id">
                   <template #prepend>
@@ -245,7 +245,7 @@ const lb6 = computed({
               {{lb5.length}}/{{allSSStyle.length}}<br />
               {{(lb5.length/allSSStyle.length*100).toFixed(2)}}%
             </v-card-subtitle>
-            <v-card-text class="card-text">
+            <v-card-text class="card-size">
               <VueDraggable v-model="lb5" group="lb" class="h-100">
                 <v-list-item v-for="style in lb5" :key="style.id">
                   <template #prepend>
@@ -267,7 +267,7 @@ const lb6 = computed({
               {{lb6.length}}/{{allSSStyle.length}}<br />
               {{(lb6.length/allSSStyle.length*100).toFixed(2)}}%
             </v-card-subtitle>
-            <v-card-text class="card-text">
+            <v-card-text class="card-size">
               <VueDraggable v-model="lb6" group="lb" class="h-100">
                 <v-list-item v-for="style in lb6" :key="style.id">
                   <template #prepend>
@@ -287,8 +287,8 @@ const lb6 = computed({
 </template>
 
 <style scoped>
-.card-text {
-  overflow-y: auto;
+.card-size {
   height: calc(100vh - 230px);
+  overflow-y: auto;
 }
 </style>

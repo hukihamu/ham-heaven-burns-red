@@ -5,9 +5,8 @@ import type {Style} from '@/types/style.ts'
 
 export const useViewStore = defineStore('view', () => {
   const detailStyle = ref<Style>()
-  function setDetailStyle(style: Style) {
-    detailStyle.value = style
-  }
+  const getPrevStyle = ref<() => void>()
+  const getNextStyle = ref<() => void>()
 
-  return { detailStyle, setDetailStyle }
+  return { detailStyle, getPrevStyle, getNextStyle }
 })

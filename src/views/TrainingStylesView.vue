@@ -33,6 +33,20 @@ function countLB(id: number, isUp: boolean) {
     user.styles[id].lb--
   }
 }
+function setOwnerDetailStyle(index: number) {
+  view.detailStyle = styleLists.value.owner[index]
+  view.getPrevStyle = index > 0 ? () => {
+    setOwnerDetailStyle(index - 1)
+  } : undefined
+  view.getNextStyle = index < styleLists.value.owner.length - 1 ? () => {setOwnerDetailStyle(index + 1)} : undefined
+}
+function setUnownedDetailStyle(index: number) {
+  view.detailStyle = styleLists.value.unowned[index]
+  view.getPrevStyle = index > 0 ? () => {
+    setUnownedDetailStyle(index - 1)
+  } : undefined
+  view.getNextStyle = index < styleLists.value.unowned.length - 1 ? () => {setUnownedDetailStyle(index + 1)} : undefined
+}
 </script>
 
 <template>
@@ -49,9 +63,9 @@ function countLB(id: number, isUp: boolean) {
             <v-data-iterator :items="styleLists.owner" items-per-page="-1">
               <template #default="{items}">
                 <v-row no-gutters>
-                  <v-col cols="6" md="3" v-for="style in items" :key="style.raw.id">
+                  <v-col cols="6" md="3" v-for="(style, index) in items" :key="style.raw.id">
                     <v-sheet class="pa-1 select-none" position="relative">
-                      <SeraphDBImage type="select" :bg="style.raw.bg" :tooltip="style.raw.name" @click="() => view.detailStyle = style.raw"/>
+                      <SeraphDBImage type="select" :bg="style.raw.bg" :tooltip="style.raw.name" @click="setOwnerDetailStyle(index)"/>
                       <v-sheet position="absolute" location="left center" color="transparent" class="ms-3 d-flex flex-column justify-space-around h-100">
                         <v-hover>
                           <template #default="{ props, isHovering }">
@@ -79,9 +93,9 @@ function countLB(id: number, isUp: boolean) {
             <v-data-iterator :items="styleLists.unowned" items-per-page="-1">
               <template #default="{items}">
                 <v-row no-gutters>
-                  <v-col cols="6" md="3" v-for="style in items" :key="style.raw.id">
+                  <v-col cols="6" md="3" v-for="(style, index) in items" :key="style.raw.id">
                     <v-sheet class="pa-1 select-none" position="relative">
-                      <SeraphDBImage type="select" :bg="style.raw.bg" />
+                      <SeraphDBImage type="select" :bg="style.raw.bg" :tooltip="style.raw.name" @click="setUnownedDetailStyle(index)" />
                       <v-sheet position="absolute" location="left center" color="transparent" class="ms-3 d-flex flex-column justify-space-around h-100">
                         <v-hover>
                           <template #default="{ props, isHovering }">

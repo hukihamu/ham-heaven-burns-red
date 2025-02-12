@@ -11,8 +11,6 @@ master.init('characters')
 const user = useUserStore()
 
 const reverts = computed(() => master.mCharacters.reduce<string[][]>((acc, cur) => {
-  if (cur.team === '司令部' && cur.label !== 'NNanase') return acc
-  if (cur.label === 'Karen') return acc
   user.initCharacter(cur.label)
   acc[user.characters[cur.label]?.revert ?? 0].push(cur.label)
   return acc
@@ -58,7 +56,7 @@ function onChangeUserRevert(charaLabels: string[], revert: number) {
 
 <style scoped>
 .card-size {
-  max-width: calc(64px * 4);
+  width: 110px;
   height: calc(100vh - 350px);
   overflow-y: auto;
 }
