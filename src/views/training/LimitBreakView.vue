@@ -9,8 +9,10 @@ import SeraphDBImage from '@/components/SeraphDBImage.vue'
 const master = useMasterStore()
 master.init('styles')
 const user = useUserStore()
-const allSSStyle = computed(() => master.mStyles.filter(it => it.tier === 'SS'))
 const isPassive = ref(false)
+const isBasic = ref(false)
+const allSSStyle = computed(() => master.mStyles.filter(it => it.tier === 'SS'
+  && (isBasic.value ? !!it.limit_break.bonus_per_level[4].bonus.length : true)))
 const passiveOrder = computed(() => allSSStyle.value.reduce<{[styleId: number]: number}>((acc, cur) => {
   let order = 0
   // 初期アビリティ
@@ -84,8 +86,9 @@ const lb6 = computed({
 <template>
 <v-container fluid>
   <v-card title="凸別状況">
-    <v-card-subtitle>
-      <v-switch v-model="isPassive" label="3凸優先順位" hide-details density="compact" color="primary"/>
+    <v-card-subtitle class="d-flex">
+      <v-switch v-model="isPassive" label="3凸優先順位" hide-details density="compact" color="primary" class="me-5"/>
+      <v-switch v-model="isBasic" label="通常衣装" hide-details density="compact" color="primary" class="me-5"/>
     </v-card-subtitle>
     <v-card-text>
       <v-slide-group>
@@ -288,7 +291,7 @@ const lb6 = computed({
 
 <style scoped>
 .card-size {
-  height: calc(100vh - 230px);
+  height: calc(100vh - 310px);
   overflow-y: auto;
 }
 </style>

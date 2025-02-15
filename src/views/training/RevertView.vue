@@ -57,7 +57,7 @@ function onChangeUserRevert(charaLabels: string[], revert: number) {
 <style scoped>
 .card-size {
   width: 110px;
-  height: calc(100vh - 350px);
+  height: calc(100vh - 200px);
   overflow-y: auto;
 }
 </style>
