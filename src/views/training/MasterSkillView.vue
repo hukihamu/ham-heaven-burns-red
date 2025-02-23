@@ -7,11 +7,12 @@ import SeraphDBImage from '@/components/SeraphDBImage.vue'
 import {VueDraggable} from 'vue-draggable-plus'
 import {getCharacterName} from '@/utils.ts'
 const master = useMasterStore()
-master.init('latest', 'characters')
+master.init('characters')
 const user = useUserStore()
 
-const masterSkills = computed(() => [...master.mLatest.mSkills.ls]
-  .sort((a, b) => (master.mCharacters.find(it => it.label === a.label)?.id ?? 0) > (master.mCharacters.find(it => it.label === b.label)?.id ?? 0) ? 1 : -1)
+const masterSkills = computed(() => [...master.mCharacters]
+  .filter(it => it.masterly)
+  .sort((a, b) => a.id > b?.id ? 1 : -1)
   .reduce<{[id: number]: string[]}>((pre, cur) => {
     user.initCharacter(cur.label)
     const masterSkillCount = user.characters[cur.label].masterSkill

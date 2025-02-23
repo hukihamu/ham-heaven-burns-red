@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type {TeamType} from '@/types/general.ts'
 import {computed} from 'vue'
-import {HAM_DOMAIN, HBR_DOMAIN} from '@/utils.ts'
+import {HAM_DOMAIN, HBR_ASSETS_DOMAIN} from '@/utils.ts'
 
 const props = defineProps({
   tooltip: String,
@@ -16,8 +15,8 @@ const videoAttr = computed<{src: string, cover: boolean, position: string}>(() =
   return {src: HAM_DOMAIN + `/webm/${props.webm}`, cover: props.cover ?? false, position: props.position ?? 'center center'}
 })
 function onErrorWebm(el: HTMLVideoElement, src: string) {
-  if (el.src === src.replace(HAM_DOMAIN, HBR_DOMAIN)) return
-  el.src = src.replace(HAM_DOMAIN, HBR_DOMAIN)
+  if (el.src === src.replace(HAM_DOMAIN, HBR_ASSETS_DOMAIN)) return
+  el.src = src.replace(HAM_DOMAIN, HBR_ASSETS_DOMAIN)
 }
 </script>
 

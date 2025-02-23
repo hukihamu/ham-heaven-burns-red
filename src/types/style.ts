@@ -92,6 +92,7 @@ export interface Skill {
   desc: string
   hit_count: number
   target_type: string // AllySingleWithoutSelf
+  consume_type: string // Sp
   is_restricted: number
   auto_priority: number
   is_adv: boolean
@@ -99,6 +100,7 @@ export interface Skill {
   sp_cost: number
   max_level: number
   overwrite: number
+  overwrite_cond: string
   effect: string // NormalBuff_Up
   cond: string
   passive: SkillPassive | null
@@ -168,9 +170,11 @@ interface Part {
   growth: number[]
   hits: Hit[]
   hit_condition: string
+  target_condition: string
   effect: Effect
 }
 interface Effect {
+  ir: boolean
   category: string // AttackUp_Count CriticalDamageUp_Count
   limitType: string // Default
   exitCond: string // Count

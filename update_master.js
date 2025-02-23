@@ -12,7 +12,6 @@ if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir)
 
 const tableList = ['styles', 'events', 'accessories', 'characters', 'latest', ]
 const getData = async () => {
-  let latest = undefined
   let characters = undefined
   let styles = undefined
   // テーブル取得
@@ -21,9 +20,6 @@ const getData = async () => {
     .then(json => {
       fs.writeFileSync(`${masterDir}/${table}.json`, JSON.stringify(json, null, 2))
       switch (table) {
-        case 'latest':
-          latest = json
-          break
         case 'characters':
           characters = json
           break
@@ -33,14 +29,6 @@ const getData = async () => {
       }
     })
   ))
-  // master skill取得
-  latest?.mSkills.ls.forEach(c => {
-    fetch(`https://master.hbr.quest/masterSkills/${c.label}.json`)
-      .then(res => res.json())
-      .then(json => {
-        fs.writeFileSync(`${masterDir}/masterSkills/${c.label}.json`, JSON.stringify(json, null, 2))
-      })
-  })
   // TODO 画像取得
   if (!fs.existsSync(`${imgDir}/b`)) fs.mkdirSync(`${imgDir}/b`)
   if (!fs.existsSync(`${imgDir}/g`)) fs.mkdirSync(`${imgDir}/g`)

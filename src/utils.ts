@@ -29,6 +29,7 @@ export function getCharacterName(label: string, list: Character[]): string {
 }
 export const HAM_DOMAIN = '/ham-heaven-burns-red/img'
 export const HBR_DOMAIN = 'https://hbr.quest'
+export const HBR_ASSETS_DOMAIN = 'https://assets.hbr.quest'
 /*
 export const images = {
     charSmallIcon(label: string) {
