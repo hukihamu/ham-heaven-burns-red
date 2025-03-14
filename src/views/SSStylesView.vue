@@ -6,9 +6,26 @@ import SeraphDBImage from '@/components/SeraphDBImage.vue'
 const master = useMasterStore()
 master.init('styles')
 
-const threeMonthAgo = new Date()
-threeMonthAgo.setDate(-110)
-threeMonthAgo.setHours(23, 59, 59, 0)
+// 初出ガチャ終了日+92日後の翌月1日 開始日+18でおおよそ終了日
+function dateToClassName(dateString: string): string {
+  const date = new Date(dateString)
+  date.setDate(date.getDate() + 110)
+  date.setHours(0, 0, 0, 0)
+  const nowMonth = new Date()
+  nowMonth.setDate(1)
+  nowMonth.setHours(0, 0, 0, 0)
+  const nextMonth = new Date()
+  nextMonth.setDate(1)
+  nextMonth.setHours(0, 0, 0, 0)
+  nextMonth.setMonth(nextMonth.getMonth() + 1)
+  if (date.getTime() < nowMonth.getTime()) {
+    return ''
+  } else if (date.getTime() < nextMonth.getTime()) {
+    return 'text-warning'
+  } else {
+    return 'text-secondary'
+  }
+}
 </script>
 
 <template>
@@ -21,7 +38,7 @@ threeMonthAgo.setHours(23, 59, 59, 0)
             <SeraphDBImage type="select" :bg="style.raw.bg" :height="80"/>
           </template>
           <template #append>
-            <span :class="{'text-secondary': new Date(style.raw.in_date).getTime() > threeMonthAgo.getTime() }">
+            <span :class="dateToClassName(style.raw.in_date)">
             {{ new Date(style.raw.in_date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }) }}
           </span>
           </template>
