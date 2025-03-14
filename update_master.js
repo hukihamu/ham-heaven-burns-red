@@ -38,7 +38,7 @@ const getData = async () => {
   if (!fs.existsSync(`${imgDir}/pf`)) fs.mkdirSync(`${imgDir}/pf`)
   function imageFetch(path) {
     if (fs.existsSync(`${imgDir}${path}`)) return
-    fetch(`https://hbr.quest${path}`)
+    fetch(`https://assets.hbr.quest/v1${path}`)
       .then(res => res.blob())
       .then(blob => blob.arrayBuffer())
       .then(arrayBuffer => {
