@@ -60,6 +60,7 @@ const getData = async () => {
     if (!fs.existsSync(`${imgDir}/pf/${team}`)) fs.mkdirSync(`${imgDir}/pf/${team}`)
     imageFetch(`/pf/${team}/${c.label}.webp`)
   })
+  characters = undefined
   styles?.forEach(s => {
     // select
     const select = s.bg.replace('.webp', '_Select.webp')
@@ -68,6 +69,7 @@ const getData = async () => {
     // thumbnail
     imageFetch(`/hbr/${s.image}`)
   })
+  styles = undefined
 
   // ui icon
   imageFetch(`/al/IconUp.webp`)

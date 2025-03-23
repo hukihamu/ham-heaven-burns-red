@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed} from 'vue'
 import type {TeamType} from '@/types/general.ts'
-import {HAM_DOMAIN, HBR_DOMAIN} from '@/utils.ts'
+import {HAM_DOMAIN, HBR_ASSETS_DOMAIN} from '@/utils.ts'
 type ImageType = 'select' | 'allow' | 'new' | 'team' | 'character-badges' | 'hbr' | 'g' | 'team-character-label'
 const props = defineProps({
   type: {
@@ -68,8 +68,9 @@ const imageAttr = computed<ImageAttr>(() => {
 })
 function onErrorImage(el: Element, src: string) {
   const img = el.querySelector('img')
-  if (!img || img.src === src.replace(HAM_DOMAIN, HBR_DOMAIN)) return
-  img.src = src.replace(HAM_DOMAIN, HBR_DOMAIN)
+  const temp = src.replace(HAM_DOMAIN, HBR_ASSETS_DOMAIN)
+  if (!img || img.src === temp) return
+  img.src = temp
 }
 </script>
 

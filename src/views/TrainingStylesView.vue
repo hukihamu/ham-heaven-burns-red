@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import {useUserStore} from '@/stores/user.ts'
 import {useMasterStore} from '@/stores/master.ts'
-import {computed} from 'vue'
+import {computed, ref} from 'vue'
 import type {Style} from '@/types/style.ts'
 import SeraphDBImage from '@/components/SeraphDBImage.vue'
 import {useViewStore} from '@/stores/view.ts'
+import PieceDialog from '@/components/PieceDialog.vue'
 
 const user = useUserStore()
 const master = useMasterStore()
 const view = useViewStore()
+const isPieceDialog = ref(false)
 
 master.init('styles')
 const allSSStyles = computed<Style[]>(() => master.mStyles.filter(s => s.tier === 'SS'))
@@ -56,6 +58,7 @@ function setUnownedDetailStyle(index: number) {
       <v-card-subtitle>
         <v-btn text="絞り込み" disabled class="me-2"/>
         <v-btn text="並び替え" disabled/>
+        <v-btn text="余剰ピース" @click="isPieceDialog = true"/>
       </v-card-subtitle>
       <v-card-text>
         <v-card title="所持スタイル" :subtitle="`${styleLists.owner.length}/${allSSStyles.length} ${(styleLists.owner.length/allSSStyles.length*100).toFixed(2)}%`">
@@ -112,6 +115,7 @@ function setUnownedDetailStyle(index: number) {
         </v-card>
       </v-card-text>
     </v-card>
+    <PieceDialog v-model="isPieceDialog" />
   </v-container>
 </template>
 
