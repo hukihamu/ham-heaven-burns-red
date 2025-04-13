@@ -6,8 +6,11 @@ import type {Event} from '@/types/event.ts'
 import type {Chapter} from '@/types/chapter.ts'
 import type {Accessory} from '@/types/accessory.ts'
 import type {Character} from '@/types/character.ts'
+import type {Skill} from '@/types/skill.ts'
+import type {SkillType} from '@/types/skill_types.ts'
+import type {MasterSkill} from '@/types/master_skills.ts'
 
-type StyleType = 'styles' | 'events' | 'chapters' | 'accessories' | 'characters'
+type StyleType = 'styles' | 'events' | 'chapters' | 'accessories' | 'characters' | 'skills' | 'skill_types' | 'masterSkills'
 
 export const useMasterStore =  defineStore('master', () => {
   const isInit = ref({
@@ -16,6 +19,9 @@ export const useMasterStore =  defineStore('master', () => {
     chapters: false,
     accessories: false,
     characters: false,
+    skills: false,
+    skill_types: false,
+    masterSkills: false,
   })
   const m = {
     styles: ref<Style[]>([]),
@@ -23,6 +29,9 @@ export const useMasterStore =  defineStore('master', () => {
     chapters: ref<Chapter[]>(chapters as Chapter[]),
     accessories: ref<Accessory[]>([]),
     characters: ref<Character[]>([]),
+    skills: ref<Skill[]>([]),
+    skill_types: ref<SkillType[]>([]),
+    masterSkills: ref<MasterSkill[]>([]),
   }
   async function init(...tList: StyleType[]) {
     for (const t of tList) {
@@ -53,6 +62,9 @@ export const useMasterStore =  defineStore('master', () => {
     mChapters: m.chapters,
     mAccessories: m.accessories,
     mCharacters: useCharacters,
+    mSkills: m.skills,
+    mSkillTypes: m.skill_types,
+    mMasterSkills: m.masterSkills,
     init
   }
 })

@@ -7,6 +7,11 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/SSStylesView.vue'),
   },
   {
+    path: '/search-styles',
+    name: 'search-styles',
+    component: () => import('@/views/SearchStylesView.vue'),
+  },
+  {
     path: '/stories',
     name: 'stories',
     component: () => import('@/views/StoriesView.vue'),
@@ -75,6 +80,7 @@ export const routeNames: Record<string | symbol, string> = {
   'stories': 'ストーリー順',
   'training-styles': 'スタイル育成',
   'training-characters': 'キャラクター育成',
+  'search-styles': 'スタイル検索',
 
   'training': '育成状況',
   'limit-break': '凸別状況',

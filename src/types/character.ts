@@ -1,5 +1,5 @@
 import type {TeamType} from '@/types/general.ts'
-import type {Skill} from "@/types/style.ts";
+import type {StyleSkill} from "@/types/style.ts";
 
 export interface Character {
   id: number
@@ -29,14 +29,23 @@ export interface Card {
   ele: unknown[]
   stats: unknown
   gabi: unknown | null
-  skills: unknown[]
+  skills: Skill[]
   passives: unknown[]
+}
+interface Skill {
+  i: number
+  l: string
+  n: string
+  c: number
+  ct: string
+  u: number
+  e: string[][]
 }
 
 interface Masterly {
   id: number
   label: string
-  skill: Skill
+  skill: StyleSkill
   hits: unknown[]
   in_date: string
   missions: Mission[]

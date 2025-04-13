@@ -26,7 +26,7 @@ export interface Style {
   weapon: Weapon // 武器情報
   pair_weapon: string // ユニゾンの相方武器ID (Weapon.YIzumi01b)
   base_param: BaseParam // 初期パラメータ
-  skills: Skill[] // スキル情報
+  skills: StyleSkill[] // スキル情報
   growth_abi: GrowthAbi | null // 宝珠強化
   limit_break: LimitBreak // 凸情報
   ability_tree: AbilityTree[] // 強化ツリー
@@ -46,7 +46,7 @@ export interface Passive {
   effect: string
   auto_type: string
   parts?: Part[]
-  skills?: Skill[]
+  skills?: StyleSkill[]
   in_date: string
 }
 interface RequireItem {
@@ -84,8 +84,9 @@ interface SkillPassive {
   activ_rate: number
   effect: string
   auto_type: string
+  limit?: number
 }
-export interface Skill {
+export interface StyleSkill {
   id: number
   label: string
   name: string
@@ -109,6 +110,7 @@ export interface Skill {
   in_date: string
   is_strval?: boolean
 }
+
 interface Parameter {
   str: number
   wis: number
@@ -160,7 +162,7 @@ interface Part {
   elements: ElementType[]
   power: number[]
   value: number[]
-  strval: number[] | Skill[]
+  strval: number[] | StyleSkill[]
   cond: string
   sstl: string[] | null
   dv: number

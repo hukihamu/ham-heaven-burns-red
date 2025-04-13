@@ -1,4 +1,4 @@
-import type {Skill} from '@/types/style.ts'
+import type {StyleSkill} from '@/types/style.ts'
 
 export interface Accessory {
   id: number
@@ -13,5 +13,5 @@ export interface Accessory {
   condition: string
   effects: unknown[]
   rng_eff: unknown[]
-  skill: Skill[]
+  skill: StyleSkill[]
 }

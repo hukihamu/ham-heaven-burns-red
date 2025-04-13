@@ -7,10 +7,9 @@ const masterDir = environment === 'dev' ? 'public/master' : 'dist/master'
 const imgDir = environment === 'dev' ? 'public/img' : 'dist/img'
 
 if (!fs.existsSync(masterDir)) fs.mkdirSync(masterDir)
-if (!fs.existsSync(`${masterDir}/masterSkills`)) fs.mkdirSync(`${masterDir}/masterSkills`)
 if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir)
 
-const tableList = ['styles', 'events', 'accessories', 'characters', 'latest', ]
+const tableList = ['styles', 'events', 'accessories', 'characters', 'latest', 'skills', 'skill_types', 'masterSkills', ]
 const getData = async () => {
   let characters = undefined
   let styles = undefined

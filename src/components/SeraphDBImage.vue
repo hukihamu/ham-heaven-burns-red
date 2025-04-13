@@ -2,7 +2,7 @@
 import {computed} from 'vue'
 import type {TeamType} from '@/types/general.ts'
 import {HAM_DOMAIN, HBR_ASSETS_DOMAIN} from '@/utils.ts'
-type ImageType = 'select' | 'allow' | 'new' | 'team' | 'character-badges' | 'hbr' | 'g' | 'team-character-label'
+type ImageType = 'select' | 'allow' | 'new' | 'team' | 'character-badges' | 'hbr' | 'g' | 'team-character-label' | 'skill-type'
 const props = defineProps({
   type: {
     type: String as () => ImageType,
@@ -21,6 +21,7 @@ const props = defineProps({
   characterLabel: String,
   hbr: String,
   g: String,
+  skillType: String,
 })
 function calcWidth(defaultWidth: number, defaultHeight: number) {
   if (props.width) return props.width
@@ -58,6 +59,10 @@ const imageAttr = computed<ImageAttr>(() => {
     case 'g':
       attr.src += `/g/${props.g}`
       attr.width = calcWidth(260, 508) // プロフィール基準
+      break
+    case 'skill-type':
+      attr.src += `/al/${props.skillType}.webp`
+      attr.width = calcWidth(59, 59) // 攻撃力アップ基準
       break
     case 'team-character-label':
       attr.src += `/pf/${props.team?.toLowerCase().replace(' ', '')}/${props.characterLabel}.webp`
