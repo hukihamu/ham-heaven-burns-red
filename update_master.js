@@ -73,7 +73,8 @@ const getData = async () => {
     // thumbnail
     imageFetch(`/hbr/${s.image}`)
   })
-  fs.writeFileSync(`${masterDir}/styles.json`, JSON.stringify(styles, null, 2))
+
+  fs.writeFileSync(`${masterDir}/styles.json`, JSON.stringify(styles.sort((a, b) => a.id > b.id ? 1 : -1), null, 2))
   styles = undefined
 
   // ui icon
