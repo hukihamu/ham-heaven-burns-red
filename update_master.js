@@ -9,10 +9,10 @@ const imgDir = environment === 'dev' ? 'public/img' : 'dist/img'
 if (!fs.existsSync(masterDir)) fs.mkdirSync(masterDir)
 if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir)
 
-const tableList = ['styles', 'events', 'accessories', 'characters', 'latest', 'skills', 'skill_types', 'masterSkills', ]
+const tableList = ['events', 'accessories', 'characters', 'latest', 'skills', 'skill_types', 'masterSkills', ]
 const getData = async () => {
   let characters = undefined
-  let styles = undefined
+  let styles = []
   // テーブル取得
   await Promise.all(tableList.map(table => fetch(`https://master.hbr.quest/${table}.json`)
     .then(res => res.json())
@@ -21,9 +21,6 @@ const getData = async () => {
       switch (table) {
         case 'characters':
           characters = json
-          break
-        case 'styles':
-          styles = json
           break
       }
     })
@@ -59,6 +56,14 @@ const getData = async () => {
     if (!fs.existsSync(`${imgDir}/pf/${team}`)) fs.mkdirSync(`${imgDir}/pf/${team}`)
     imageFetch(`/pf/${team}/${c.label}.webp`)
   })
+  // キャラごとのstyles
+  await Promise.all(characters.map(c => fetch(`https://master.hbr.quest/styles/${c.label}.json`)
+    .then(res => res.json())
+    .then(json => {
+      styles.push(...json)
+    })
+  ))
+
   characters = undefined
   styles?.forEach(s => {
     // select
@@ -68,6 +73,7 @@ const getData = async () => {
     // thumbnail
     imageFetch(`/hbr/${s.image}`)
   })
+  fs.writeFileSync(`${masterDir}/styles.json`, JSON.stringify(styles, null, 2))
   styles = undefined
 
   // ui icon
