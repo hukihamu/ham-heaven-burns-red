@@ -9,7 +9,7 @@ const isShowDialog = ref(false)
 const master = useMasterStore()
 master.init('styles')
 const user = useUserStore()
-const allSSStyle = computed(() => master.mStyles.filter(it => it.tier === 'SS'))
+const allSSStyle = computed(() => master.mStyles.filter(it => it.tier === 'SS' || s.tier === 'SSR'))
 
 
 const lb = computed(() => allSSStyle.value.reduce<Style[]>((pre, cur) => {

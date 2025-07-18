@@ -13,7 +13,7 @@ const master = useMasterStore()
 master.init('styles')
 const user = useUserStore()
 const allPassives = computed(() => master.mStyles
-  .filter(s => s.tier === 'SS')
+  .filter(s => s.tier === 'SS' || s.tier === 'SSR')
   .reduce<passive>((acc, cur) => {
     // 初期アビリティ
     cur.passives.forEach(p => {
