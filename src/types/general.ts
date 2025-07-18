@@ -1,4 +1,4 @@
-export type TierType = 'A' | 'S' | 'SS'
+export type TierType = 'A' | 'S' | 'SS' | 'SSR'
 export type ElementType = 'Fire' | 'Light' | 'Thunder' | 'Dark' | 'Ice' | 'Nonelement'
 export type StyleType = 'Strike' | 'Stab' | 'Slash'
 export type RoleType = 'Attacker' | 'Breaker' | 'Debuffer' | 'Buffer' | 'Blaster' | 'Healer' | 'Defender' | 'Admiral'
