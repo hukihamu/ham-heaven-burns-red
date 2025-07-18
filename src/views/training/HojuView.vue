@@ -9,7 +9,7 @@ import SeraphDBImage from '@/components/SeraphDBImage.vue'
 const master = useMasterStore()
 master.init('styles')
 const user = useUserStore()
-const allSSStyle = computed(() => master.mStyles.filter(it => (it.tier === 'SS' && user.styles[it.id]?.lb !== undefined) || it.tier === 'S'))
+const allSSStyle = computed(() => master.mStyles.filter(it => ((it.tier === 'SS' || it.tier === 'SSR') && user.styles[it.id]?.lb !== undefined) || it.tier === 'S'))
 const hoju = computed(() => allSSStyle.value.reduce<{[id: number]: Style[]}>((pre, cur) => {
   user.initStyle(cur.id)
   const hojuCount = user.styles[cur.id].hoju

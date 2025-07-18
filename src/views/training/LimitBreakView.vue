@@ -11,7 +11,7 @@ master.init('styles')
 const user = useUserStore()
 const isPassive = ref(false)
 const isBasic = ref(false)
-const allSSStyle = computed(() => master.mStyles.filter(it => it.tier === 'SS'
+const allSSStyle = computed(() => master.mStyles.filter(it => (it.tier === 'SS' || it.tier === 'SSR')
   && (isBasic.value ? !!it.limit_break.bonus_per_level[4].bonus.length : true)))
 const passiveOrder = computed(() => allSSStyle.value.reduce<{[styleId: number]: number}>((acc, cur) => {
   let order = 0

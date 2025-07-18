@@ -13,7 +13,7 @@ const view = useViewStore()
 const isPieceDialog = ref(false)
 
 master.init('styles')
-const allSSStyles = computed<Style[]>(() => master.mStyles.filter(s => s.tier === 'SS'))
+const allSSStyles = computed<Style[]>(() => master.mStyles.filter(s => s.tier === 'SS' || s.tier === 'SSR'))
 const styleLists = computed(() => allSSStyles.value.reduce<{ owner: Style[], unowned: Style[] }>((acc, style) => {
   if (user.styles[style.id]?.lb === undefined) {
     acc.unowned.push(style)

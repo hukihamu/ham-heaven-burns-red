@@ -90,7 +90,7 @@ const selectSkillType = ref<string[]>([])
 const openPanel = ref([0])
 const isOwned = ref(false)
 
-const styles = computed(() => isOwned.value ? master.mStyles.filter(it => user.styles[it.id]?.lb !== undefined || it.tier !== 'SS') : master.mStyles)
+const styles = computed(() => isOwned.value ? master.mStyles.filter(it => user.styles[it.id]?.lb !== undefined || (it.tier !== 'SS' && it.tier !== 'SSR')) : master.mStyles)
 
 const skills = computed(() => [...master.mSkills, ...master.mMasterSkills.map(it => ({...it.skill, chara: it.chara, style: undefined}))])
 const skillEffects = computed(() => skills.value.reduce<{[skillType: string]: {[chara: string]: {styles: Set<string>, isMasterSkill: boolean}}}>((pre, cur) => {
